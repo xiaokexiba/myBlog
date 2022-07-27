@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yeffxyz.blog.mapper.BlogMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeffxyz.blog.entity.Blog">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="appreciation" column="appreciation" jdbcType="BIT"/>
+            <result property="commentable" column="commentabled" jdbcType="BIT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="firstPicture" column="first_picture" jdbcType="VARCHAR"/>
+            <result property="flag" column="flag" jdbcType="VARCHAR"/>
+            <result property="published" column="published" jdbcType="BIT"/>
+            <result property="recommend" column="recommend" jdbcType="BIT"/>
+            <result property="copyright" column="share_statement" jdbcType="BIT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="views" column="views" jdbcType="VARCHAR"/>
+            <result property="typeId" column="type_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="commentCount" column="comment_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,appreciation,commentable,
+        content,create_time,first_picture,
+        flag,published,recommend,
+        copyright,title,update_time,
+        views,type_id,user_id,
+        description,comment_count
+    </sql>
+</mapper>
