@@ -8,3 +8,12 @@ spring:
     password: root
   session:
     timeout: 86400
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+server:
+  port: 8081
+
+
+
+
+
