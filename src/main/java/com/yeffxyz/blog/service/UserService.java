@@ -1,5 +1,6 @@
 package com.yeffxyz.blog.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.yeffxyz.blog.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author xoke
  * @date 2022/7/27
  */
-public interface UserService {
+public interface UserService extends IService<User> {
     /**
      * 核对管理员用户
      *

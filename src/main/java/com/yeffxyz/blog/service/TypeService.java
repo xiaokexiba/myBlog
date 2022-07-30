@@ -1,6 +1,8 @@
 package com.yeffxyz.blog.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.yeffxyz.blog.entity.Type;
+import com.yeffxyz.blog.entity.User;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * @author xoke
  * @date 2022/7/28
  */
-public interface TypeService {
+public interface TypeService extends IService<Type> {
 
     /**
      * 新增分类的类别

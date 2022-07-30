@@ -1,6 +1,7 @@
 spring:
   application:
     name: blog
+  # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog
@@ -10,9 +11,21 @@ spring:
     timeout: 86400
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  main:
+    allow-circular-references: true
+# mybatis-plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  typeAliasesPackage: com.qcby.zsgc.entity
+  mapperLocations: classpath:mapper/*.xml
+  #  全局配置id自增
+  global-config:
+    db-config:
+      id-type: auto
+# 端口
 server:
-  port: 8081
-
+  port: 8080
 
 
 

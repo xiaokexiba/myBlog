@@ -2,6 +2,7 @@ package com.yeffxyz.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yeffxyz.blog.entity.Blog;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 博客持久层接口

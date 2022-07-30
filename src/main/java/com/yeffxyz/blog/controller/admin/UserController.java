@@ -1,10 +1,11 @@
 package com.yeffxyz.blog.controller.admin;
 
+import com.yeffxyz.blog.common.BaseResponse;
+import com.yeffxyz.blog.common.ResultUtils;
 import com.yeffxyz.blog.entity.User;
 import com.yeffxyz.blog.entity.request.UserRegisterRequest;
 import com.yeffxyz.blog.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,12 +19,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/admin")
-public class LoginController {
+public class UserController {
     @Resource
     private UserService userService;
 
     @PostMapping("/login")
-    public User login(@RequestBody UserRegisterRequest userRegisterRequest, HttpServletRequest request) {
+    public BaseResponse<User> login(@RequestBody UserRegisterRequest userRegisterRequest, HttpServletRequest request) {
         if (userRegisterRequest == null) {
             return null;
         }
@@ -35,6 +36,6 @@ public class LoginController {
             return null;
         }
         User user = userService.checkUser(username, password);
-        return user;
+        return ResultUtils.success(user);
     }
 }
