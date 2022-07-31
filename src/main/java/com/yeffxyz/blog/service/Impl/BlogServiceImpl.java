@@ -15,6 +15,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements BlogService {
 
+    /**
+     * 保存新增博客
+     *
+     * @param blog 博客
+     * @return 数据库更改的条数
+     */
+    @Override
+    public int saveBlog(Blog blog) {
+        return 0;
+    }
+
+    /**
+     * 删除博客
+     *
+     * @param id 博客id
+     */
+    @Override
+    public void deleteBlog(Long id) {
+
+    }
 }
 
 

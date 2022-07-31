@@ -11,4 +11,18 @@ import com.yeffxyz.blog.entity.Blog;
  */
 public interface BlogService extends IService<Blog> {
 
+    /**
+     * 保存新增博客
+     *
+     * @param blog 博客
+     * @return 数据库更改的条数
+     */
+    int saveBlog(Blog blog);
+
+    /**
+     * 删除博客
+     *
+     * @param id 博客id
+     */
+    void deleteBlog(Long id);
 }
