@@ -35,7 +35,7 @@ public class UserController {
         if (StringUtils.isAnyBlank(username, password)) {
             return null;
         }
-        User user = userService.checkUser(username, password);
+        User user = userService.userLogin(username, password);
         return ResultUtils.success(user);
     }
 }

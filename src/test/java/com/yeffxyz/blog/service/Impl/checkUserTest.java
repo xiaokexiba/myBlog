@@ -29,7 +29,7 @@ public class checkUserTest {
         user.setEmail("yjm@126.com");
         user.setType(1);
         user.setAvatar("https://lh3.googleusercontent.com/wJnjWz3kB_kUYn8ii8xyV_Gzo03XdzLPFg9zCQFDS0NM05ghIwR_IDOI4tkqoDaEGHQDyWLFtioAwHDHTM4Oah_O");
-        System.out.println(userService.checkUser("hhh","123123123"));
+        System.out.println(userService.userLogin("hhh","123123123"));
 
     }
 
