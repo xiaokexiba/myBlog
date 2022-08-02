@@ -16,20 +16,19 @@ public interface UserService extends IService<User> {
     /**
      * 用户注释
      *
-     * @param userAccount   用户账户
-     * @param userPassword  用户密码
+     * @param username      用户账户
+     * @param password      用户密码
      * @param checkPassword 校验密码
-     * @param planetCode    星球编号
      * @return 新用户 id
      */
-    long userRegister(String userAccount, String userPassword, String checkPassword, String planetCode);
+    long userRegister(String username, String password, String checkPassword);
 
     /**
      * 用户登入
      *
      * @param userAccount  用户账户
      * @param userPassword 用户密码
-     * @param request
+     * @param request      前端数据
      * @return 脱敏后的用户数据
      */
     User userLogin(String userAccount, String userPassword, HttpServletRequest request);
@@ -37,16 +36,16 @@ public interface UserService extends IService<User> {
     /**
      * 用户脱敏
      *
-     * @param originUser
-     * @return
+     * @param originUser 原始用户
+     * @return 脱敏后用户
      */
     User getSafetyUser(User originUser);
 
     /**
-     * 用户注销
+     * 用户退出
      *
-     * @param request
-     * @return
+     * @param request 前端数据
+     * @return 退出成功
      */
     int userLogout(HttpServletRequest request);
 }

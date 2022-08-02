@@ -134,4 +134,5 @@ public interface BlogService extends IService<Blog> {
      * @return
      */
     List<Comment> getNewComment();
+
 }

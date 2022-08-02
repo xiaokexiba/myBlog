@@ -28,7 +28,7 @@ public class TypeController {
      *
      * @param pageNumber 所处页数
      * @param pageSize   每页条数
-     * @return
+     * @return 分页结果
      */
     @GetMapping("/types/{pageNumber}/{pageSize}")
     //limit (pathNumber - 1) * pageSize,pageSize
@@ -44,8 +44,10 @@ public class TypeController {
     }
 
     /**
-     * @param type
-     * @return
+     * 增加分类
+     *
+     * @param type 类别
+     * @return 分类结果
      */
     @PostMapping("/save")
     public BaseResponse addType(@RequestBody Type type) {
@@ -59,13 +61,13 @@ public class TypeController {
     /**
      * 编辑修改分类
      *
-     * @param type
-     * @return
+     * @param type 修改类别
+     * @return 修改结果
      */
     @PostMapping("/update")
     //update hospital_set set hosname = '西安医院' where id = 10;
     //接收Post请求返回json数据
-    public BaseResponse update(@RequestBody Type type) {
+    public BaseResponse<ResultCode> update(@RequestBody Type type) {
         Type t = typeService.getTypeByName(type.getName());
         if (t != null) {
             return ResultUtils.error(ResultCode.FAIL, "不能添加重复的分类");
@@ -81,11 +83,11 @@ public class TypeController {
     /**
      * 删除分类
      *
-     * @param id
-     * @return
+     * @param id 类别id
+     * @return 删除结果
      */
     @GetMapping("/delete")
-    public BaseResponse delete(Long id) {
+    public BaseResponse<ResultCode> delete(Long id) {
         boolean flag = typeService.removeById(id);
         if (flag) {
             return ResultUtils.success(ResultCode.SUCCESS);
