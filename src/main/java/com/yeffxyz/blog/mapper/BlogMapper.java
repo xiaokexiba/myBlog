@@ -1,10 +1,9 @@
 package com.yeffxyz.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yeffxyz.blog.entity.Blog;
+import com.yeffxyz.blog.entity.Article;
 import com.yeffxyz.blog.entity.Comment;
-import com.yeffxyz.blog.entity.Type;
-import org.apache.ibatis.annotations.Mapper;
+import com.yeffxyz.blog.entity.Category;
 
 import java.util.List;
 
@@ -14,28 +13,28 @@ import java.util.List;
  * @author xoke
  * @date 2022/7/23
  */
-public interface BlogMapper extends BaseMapper<Blog> {
+public interface BlogMapper extends BaseMapper<Article> {
 
     /**
      * 查询首页最新推荐信息
      *
      * @return 最新的博客列表
      */
-    List<Blog> getLastBlog();
+    List<Article> getLastBlog();
 
     /**
      * 查询文章管理列表
      *
      * @return 所有博客列表
      */
-    List<Blog> getAllBlog();
+    List<Article> getAllBlog();
 
     /**
      * 查询推荐文章
      *
      * @return 推荐博客列表
      */
-    List<Blog> getAllRecommendBlog();
+    List<Article> getAllRecommendBlog();
 
     /**
      * 查看浏览量
@@ -47,10 +46,10 @@ public interface BlogMapper extends BaseMapper<Blog> {
     /**
      * 搜索博客管理列表
      *
-     * @param blog
+     * @param article
      * @return
      */
-    List<Blog> searchByTitleAndType(Blog blog);
+    List<Article> searchByTitleAndType(Article article);
 
     /**
      * 搜索博客列表
@@ -58,7 +57,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @param query
      * @return
      */
-    List<Blog> getSearchBlog(String query);
+    List<Article> getSearchBlog(String query);
 
     /**
      * 统计评论总数
@@ -80,7 +79,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @param id
      * @return
      */
-    Blog getDetailedBlog(Long id);
+    Article getDetailedBlog(Long id);
 
     /**
      * 文章访问更新
@@ -105,7 +104,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @param typeId
      * @return
      */
-    List<Type> getByTypeId(Long typeId);
+    List<Category> getByTypeId(Long typeId);
 
     /**
      * 查询最新评论

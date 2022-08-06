@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yeffxyz.blog.mapper.BlogMapper">
+<mapper namespace="com.yeffxyz.article.mapper.BlogMapper">
 
-    <resultMap id="BaseResultMap" type="com.yeffxyz.blog.entity.Blog">
+    <resultMap id="BaseResultMap" category="com.yeffxyz.article.entity.Article">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="appreciation" column="appreciation" jdbcType="BIT"/>
         <result property="commentable" column="commentabled" jdbcType="BIT"/>
@@ -35,7 +35,7 @@
     </sql>
 
     <!--查询文章管理列表-->
-    <select id="getAllBlog" resultType="com.yeffxyz.blog.entity.Blog">
+    <select id="getAllBlog" resultType="com.yeffxyz.article.entity.Article">
         select b.id,
                b.title,
                b.create_time,
@@ -51,7 +51,7 @@
     </select>
 
     <!--搜索博客管理列表-->
-    <select id="searchByTitleAndType" resultType="com.yeffxyz.blog.entity.Blog">
+    <select id="searchByTitleAndType" resultType="com.yeffxyz.article.entity.Article">
         <bind name="pattern" value="'%' + title + '%'"/>
         select b.id,b.title,b.type_id,t.id,t.name from myblog.t_blog b ,myblog.t_type t
         <where>
@@ -68,7 +68,7 @@
     </select>
 
     <!--查询首页最新博客列表信息-->
-    <select id="getLastBlog" resultType="com.yeffxyz.blog.entity.Blog">
+    <select id="getLastBlog" resultType="com.yeffxyz.article.entity.Article">
         select b.id,
                b.title,
                b.first_picture,
@@ -90,7 +90,7 @@
     </select>
 
     <!--查询推荐文章-->
-    <select id="getAllRecommendBlog" resultType="com.yeffxyz.blog.entity.Blog">
+    <select id="getAllRecommendBlog" resultType="com.yeffxyz.article.entity.Article">
         SELECT *
         FROM myblog.t_blog
         WHERE t_blog.recommend = TRUE
@@ -98,7 +98,7 @@
     </select>
 
     <!--搜索文章-->
-    <select id="getSearchBlog" resultType="com.yeffxyz.blog.entity.Blog">
+    <select id="getSearchBlog" resultType="com.yeffxyz.article.entity.Article">
         <bind name="pattern" value="'%' + query + '%'"/>
         select b.id,b.title,b.first_picture, b.views,b.comment_count,b.update_time,b.description,t.name , u.nickname,
         u.avatar
@@ -123,7 +123,7 @@
     </select>
 
     <!--博客详情查询-->
-    <select id="getDetailedBlog" resultType="com.yeffxyz.blog.entity.Blog">
+    <select id="getDetailedBlog" resultType="com.yeffxyz.article.entity.Article">
         select b.id bid,
                b.first_picture,
                b.flag,
@@ -147,14 +147,14 @@
     </select>
 
     <!--文章访问自增-->
-    <update id="updateViews" parameterType="com.yeffxyz.blog.entity.Blog">
+    <update id="updateViews" parameterType="com.yeffxyz.article.entity.Article">
         update myblog.t_blog b
         set b.views = b.views + 1
         where b.id = #{id}
     </update>
 
     <!--查询出文章评论数量并更新-->
-    <update id="getCommentCountById" parameterType="com.yeffxyz.blog.entity.Blog">
+    <update id="getCommentCountById" parameterType="com.yeffxyz.article.entity.Article">
         update myblog.t_blog b
         set b.comment_count = (
             select count(*) from myblog.t_comment c where c.blog_id = #{id} and b.id = #{id}
@@ -164,7 +164,7 @@
 
 
     <!--根据TypeId查询博客列表，显示在分类页面-->
-    <select id="getByTypeId" resultType="com.yeffxyz.blog.entity.Type">
+    <select id="getByTypeId" resultType="com.yeffxyz.article.entity.Type">
         select b.id,
                b.title,
                b.first_picture,
@@ -185,7 +185,7 @@
     </select>
 
     <!--查询最新评论-->
-    <select id="getNewComment" resultType="com.yeffxyz.blog.entity.Comment">
+    <select id="getNewComment" resultType="com.yeffxyz.article.entity.Comment">
         SELECT *
         FROM myblog.t_comment c,
              myblog.t_blog b

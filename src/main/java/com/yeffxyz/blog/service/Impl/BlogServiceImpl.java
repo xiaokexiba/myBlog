@@ -3,9 +3,9 @@ package com.yeffxyz.blog.service.Impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yeffxyz.blog.common.MarkdownUtils;
 import com.yeffxyz.blog.common.ResultCode;
-import com.yeffxyz.blog.entity.Blog;
+import com.yeffxyz.blog.entity.Article;
 import com.yeffxyz.blog.entity.Comment;
-import com.yeffxyz.blog.entity.Type;
+import com.yeffxyz.blog.entity.Category;
 import com.yeffxyz.blog.exception.BusinessException;
 import com.yeffxyz.blog.service.BlogService;
 import com.yeffxyz.blog.mapper.BlogMapper;
@@ -24,24 +24,24 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements BlogService {
+public class BlogServiceImpl extends ServiceImpl<BlogMapper, Article> implements BlogService {
     @Resource
     private BlogMapper blogMapper;
 
     /**
      * 保存新增博客
      *
-     * @param blog 博客
+     * @param article 博客
      * @return 数据库更改的条数
      */
     @Override
-    public int saveBlog(Blog blog) {
+    public int saveBlog(Article article) {
         Date now = new Date();
-        blog.setCreateTime(now);
-        blog.setUpdateTime(now);
-        blog.setViews(0);
-        blog.setCommentCount(0);
-        return blogMapper.insert(blog);
+        article.setCreateTime(now);
+        article.setUpdateTime(now);
+        article.setViews(0);
+        article.setCommentCount(0);
+        return blogMapper.insert(article);
     }
 
     /**
@@ -60,7 +60,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
      * @return 文章管理列表
      */
     @Override
-    public List<Blog> getAllBlog() {
+    public List<Article> getAllBlog() {
         return blogMapper.getAllBlog();
     }
 
@@ -71,30 +71,30 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
      * @return 编辑修改的博客
      */
     @Override
-    public Blog getBlogById(Long id) {
+    public Article getBlogById(Long id) {
         return blogMapper.selectById(id);
     }
 
     /**
      * 编辑修改文章
      *
-     * @param blog 需要修改的博客
+     * @param article 需要修改的博客
      * @return 数据库变化条数
      */
     @Override
-    public int updateBlog(Blog blog) {
-        return blogMapper.updateById(blog);
+    public int updateBlog(Article article) {
+        return blogMapper.updateById(article);
     }
 
     /**
      * 搜索博客管理列表
      *
-     * @param blog 查询的博客
+     * @param article 查询的博客
      * @return 博客管理列表
      */
     @Override
-    public List<Blog> searchByTitleAndType(Blog blog) {
-        return blogMapper.searchByTitleAndType(blog);
+    public List<Article> searchByTitleAndType(Article article) {
+        return blogMapper.searchByTitleAndType(article);
     }
 
     /**
@@ -103,7 +103,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
      * @return 首页最新博客列表信息
      */
     @Override
-    public List<Blog> getLastBlog() {
+    public List<Article> getLastBlog() {
         return blogMapper.getLastBlog();
     }
 
@@ -113,7 +113,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
      * @return 首页最新推荐信息
      */
     @Override
-    public List<Blog> getRecommendedBlog() {
+    public List<Article> getRecommendedBlog() {
         return blogMapper.getAllRecommendBlog();
     }
 
@@ -124,7 +124,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
      * @return 含有该内容的博客列表
      */
     @Override
-    public List<Blog> getSearchBlog(String query) {
+    public List<Article> getSearchBlog(String query) {
         return blogMapper.getSearchBlog(query);
     }
 
@@ -175,18 +175,18 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
      * @return 返回博客的详情
      */
     @Override
-    public Blog getDetailedBlog(Long id) {
-        Blog detailedBlog = blogMapper.getDetailedBlog(id);
-        if (detailedBlog == null) {
+    public Article getDetailedBlog(Long id) {
+        Article detailedArticle = blogMapper.getDetailedBlog(id);
+        if (detailedArticle == null) {
             throw new BusinessException(ResultCode.DATA_ERROR, "该博客不存在");
         }
-        String content = detailedBlog.getContent();
-        detailedBlog.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        String content = detailedArticle.getContent();
+        detailedArticle.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
         //文章访问数量自增
         blogMapper.updateViews(id);
         //文章评论数量更新
         blogMapper.getCommentCountById(id);
-        return detailedBlog;
+        return detailedArticle;
     }
 
     /**
@@ -196,7 +196,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
      * @return id所属分类
      */
     @Override
-    public List<Type> getByTypeId(Long typeId) {
+    public List<Category> getByTypeId(Long typeId) {
         return blogMapper.getByTypeId(typeId);
     }
 

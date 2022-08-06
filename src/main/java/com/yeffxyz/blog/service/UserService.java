@@ -1,7 +1,7 @@
 package com.yeffxyz.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yeffxyz.blog.entity.User;
+import com.yeffxyz.blog.entity.UserInfo;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author xoke
  * @date 2022/7/27
  */
-public interface UserService extends IService<User> {
+public interface UserService extends IService<UserInfo> {
 
     /**
      * 用户注释
@@ -31,7 +31,7 @@ public interface UserService extends IService<User> {
      * @param request      前端数据
      * @return 脱敏后的用户数据
      */
-    User userLogin(String userAccount, String userPassword, HttpServletRequest request);
+    UserInfo userLogin(String userAccount, String userPassword, HttpServletRequest request);
 
     /**
      * 用户脱敏
@@ -39,7 +39,7 @@ public interface UserService extends IService<User> {
      * @param originUser 原始用户
      * @return 脱敏后用户
      */
-    User getSafetyUser(User originUser);
+    UserInfo getSafetyUser(UserInfo originUser);
 
     /**
      * 用户退出

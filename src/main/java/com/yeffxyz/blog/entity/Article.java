@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Data
 @TableName(value = "t_blog")
-public class Blog {
+public class Article {
     /**
      * 主键id
      */
@@ -83,8 +83,8 @@ public class Blog {
     /**
      * 博客所属类型
      */
-    private Type type;
-    private User user;
+    private Category category;
+    private UserInfo user;
     /**
      * 博客类型id
      */

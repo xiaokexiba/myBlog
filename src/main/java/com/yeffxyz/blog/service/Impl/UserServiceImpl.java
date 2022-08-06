@@ -3,7 +3,7 @@ package com.yeffxyz.blog.service.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yeffxyz.blog.common.ResultCode;
-import com.yeffxyz.blog.entity.User;
+import com.yeffxyz.blog.entity.UserInfo;
 import com.yeffxyz.blog.exception.BusinessException;
 import com.yeffxyz.blog.mapper.UserMapper;
 import com.yeffxyz.blog.service.UserService;
@@ -28,7 +28,7 @@ import static com.yeffxyz.blog.constant.UserConstant.USER_LOGIN_STATE;
  */
 @Service
 @Slf4j
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implements UserService {
     @Resource
     private UserMapper userMapper;
 
@@ -81,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         // 账户不能重复
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         long count = userMapper.selectCount(queryWrapper);
         if (count > 0) {
@@ -98,7 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 2、加密
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + password).getBytes(StandardCharsets.UTF_8));
         // 3、插入数据
-        User user = new User();
+        UserInfo user = new UserInfo();
         user.setUsername(username);
         user.setNickname(username);
         user.setPassword(encryptPassword);
@@ -118,7 +118,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @return 脱敏后用户数据
      */
     @Override
-    public User userLogin(String username, String userPassword, HttpServletRequest request) {
+    public UserInfo userLogin(String username, String userPassword, HttpServletRequest request) {
         // 1.校验
         if (StringUtils.isAnyBlank(username, userPassword)) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "参数为空");
@@ -139,17 +139,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 2.加密
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
         // 查询用户是否存在
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         queryWrapper.eq("password", encryptPassword);
-        User user = userMapper.selectOne(queryWrapper);
+        UserInfo user = userMapper.selectOne(queryWrapper);
         // 用户不存在
         if (user == null) {
             log.info("user login failed, username Cannot match userPassword");
             return null;
         }
         // 3.用户脱敏
-        User safetyUser = getSafetyUser(user);
+        UserInfo safetyUser = getSafetyUser(user);
         // 4.记录用户的登录状态
         request.getSession().setAttribute(USER_LOGIN_STATE, safetyUser);
         return safetyUser;
@@ -162,13 +162,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @return 脱敏用户
      */
     @Override
-    public User getSafetyUser(User originUser) {
+    public UserInfo getSafetyUser(UserInfo originUser) {
         if (originUser == null) {
             return null;
         }
-        User safetyUser = new User();
+        UserInfo safetyUser = new UserInfo();
         safetyUser.setId(originUser.getId());
-        safetyUser.setUsername(originUser.getUsername());
         safetyUser.setNickname(originUser.getNickname());
         safetyUser.setAvatar(originUser.getAvatar());
         safetyUser.setEmail(originUser.getEmail());

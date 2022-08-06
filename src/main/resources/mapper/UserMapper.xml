@@ -2,16 +2,16 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yeffxyz.blog.mapper.UserMapper">
+<mapper namespace="com.yeffxyz.article.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.yeffxyz.blog.entity.User">
+    <resultMap id="BaseResultMap" category="com.yeffxyz.article.entity.UserInfo">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="email" column="email" jdbcType="VARCHAR"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
-            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="category" column="category" jdbcType="INTEGER"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
     </resultMap>
@@ -19,6 +19,6 @@
     <sql id="Base_Column_List">
         id,avatar,create_time,
         email,nickname,password,
-        type,update_time,username
+        category,update_time,username
     </sql>
 </mapper>

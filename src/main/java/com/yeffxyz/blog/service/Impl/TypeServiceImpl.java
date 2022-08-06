@@ -1,11 +1,9 @@
 package com.yeffxyz.blog.service.Impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yeffxyz.blog.entity.Type;
-import com.yeffxyz.blog.entity.User;
+import com.yeffxyz.blog.entity.Category;
 import com.yeffxyz.blog.mapper.TypeMapper;
 import com.yeffxyz.blog.service.TypeService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,19 +20,19 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements TypeService {
+public class TypeServiceImpl extends ServiceImpl<TypeMapper, Category> implements TypeService {
     @Resource
     private TypeMapper typeMapper;
 
     /**
      * 新增分类的类别
      *
-     * @param type 想要保存的类别
+     * @param category 想要保存的类别
      * @return 修改的条数
      */
     @Override
-    public int saveType(Type type) {
-        return typeMapper.insert(type);
+    public int saveType(Category category) {
+        return typeMapper.insert(category);
     }
 
     /**
@@ -44,9 +42,9 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      * @return id所属的类别
      */
     @Override
-    public Type getType(Long id) {
-        Type type = typeMapper.selectById(id);
-        return type;
+    public Category getType(Long id) {
+        Category category = typeMapper.selectById(id);
+        return category;
     }
 
     /**
@@ -55,10 +53,10 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      * @return 所有类别
      */
     @Override
-    public List<Type> getAllType() {
-        QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+    public List<Category> getAllType() {
+        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.isNotNull("name");
-        List<Type> list = typeMapper.selectList(queryWrapper);
+        List<Category> list = typeMapper.selectList(queryWrapper);
         return list;
     }
 
@@ -69,26 +67,26 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      * @return 该名称的类别对象
      */
     @Override
-    public Type getTypeByName(String name) {
-        QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+    public Category getTypeByName(String name) {
+        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", name);
-        Type type = typeMapper.selectOne(queryWrapper);
-        return type;
+        Category category = typeMapper.selectOne(queryWrapper);
+        return category;
     }
 
     /**
      * 编辑修改分类
      *
-     * @param type 想要修改的类别对象
+     * @param category 想要修改的类别对象
      * @return 修改的条数
      */
     @Override
-    public int updateType(Type type) {
-        UpdateWrapper<Type> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id", type.getId());
-        Type update = new Type();
-        update.setName(type.getName());
-        return typeMapper.update(type, updateWrapper);
+    public int updateType(Category category) {
+        UpdateWrapper<Category> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", category.getId());
+        Category update = new Category();
+        update.setName(category.getName());
+        return typeMapper.update(category, updateWrapper);
     }
 
     /**

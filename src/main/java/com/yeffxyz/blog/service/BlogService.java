@@ -1,9 +1,9 @@
 package com.yeffxyz.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yeffxyz.blog.entity.Blog;
+import com.yeffxyz.blog.entity.Article;
 import com.yeffxyz.blog.entity.Comment;
-import com.yeffxyz.blog.entity.Type;
+import com.yeffxyz.blog.entity.Category;
 
 import java.util.List;
 
@@ -13,15 +13,15 @@ import java.util.List;
  * @author xoke
  * @date 2022/7/23
  */
-public interface BlogService extends IService<Blog> {
+public interface BlogService extends IService<Article> {
 
     /**
      * 保存新增博客
      *
-     * @param blog 博客
+     * @param article 博客
      * @return 数据库更改的条数
      */
-    int saveBlog(Blog blog);
+    int saveBlog(Article article);
 
     /**
      * 删除博客
@@ -35,7 +35,7 @@ public interface BlogService extends IService<Blog> {
      *
      * @return 所有博客
      */
-    List<Blog> getAllBlog();
+    List<Article> getAllBlog();
 
     /**
      * 查询编辑修改的文章
@@ -43,23 +43,23 @@ public interface BlogService extends IService<Blog> {
      * @param id 博客id
      * @return 该id的博客
      */
-    Blog getBlogById(Long id);
+    Article getBlogById(Long id);
 
     /**
      * 编辑修改文章
      *
-     * @param blog 博客
+     * @param article 博客
      * @return 数据库修改的条数
      */
-    int updateBlog(Blog blog);
+    int updateBlog(Article article);
 
     /**
      * 搜索博客管理列表
      *
-     * @param blog
+     * @param article
      * @return
      */
-    List<Blog> searchByTitleAndType(Blog blog);
+    List<Article> searchByTitleAndType(Article article);
 
 
     /**
@@ -67,14 +67,14 @@ public interface BlogService extends IService<Blog> {
      *
      * @return
      */
-    List<Blog> getLastBlog();
+    List<Article> getLastBlog();
 
     /**
      * 查询首页最新推荐信息
      *
      * @return
      */
-    List<Blog> getRecommendedBlog();
+    List<Article> getRecommendedBlog();
 
     /**
      * 搜索博客列表
@@ -82,7 +82,7 @@ public interface BlogService extends IService<Blog> {
      * @param query
      * @return
      */
-    List<Blog> getSearchBlog(String query);
+    List<Article> getSearchBlog(String query);
 
     /**
      * 统计博客总数
@@ -118,7 +118,7 @@ public interface BlogService extends IService<Blog> {
      * @param id
      * @return
      */
-    Blog getDetailedBlog(Long id);
+    Article getDetailedBlog(Long id);
 
     /**
      * 根据TypeId查询博客列表，显示在分类页面
@@ -126,7 +126,7 @@ public interface BlogService extends IService<Blog> {
      * @param typeId
      * @return
      */
-    List<Type> getByTypeId(Long typeId);
+    List<Category> getByTypeId(Long typeId);
 
     /**
      * 查询最新评论

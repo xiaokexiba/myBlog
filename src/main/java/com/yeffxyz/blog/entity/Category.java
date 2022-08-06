@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Data
 @TableName(value = "t_type")
-public class Type implements Serializable {
+public class Category implements Serializable {
     /**
      * 主键id
      */
@@ -31,7 +31,7 @@ public class Type implements Serializable {
     /**
      * 属于同一类型的博客集合
      */
-    private List<Blog> blogs = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

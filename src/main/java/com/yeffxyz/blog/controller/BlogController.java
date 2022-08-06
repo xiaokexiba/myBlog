@@ -1,13 +1,13 @@
-package com.yeffxyz.blog.controller.admin;
+package com.yeffxyz.blog.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yeffxyz.blog.common.BaseResponse;
 import com.yeffxyz.blog.common.ResultCode;
 import com.yeffxyz.blog.common.ResultUtils;
-import com.yeffxyz.blog.entity.Blog;
-import com.yeffxyz.blog.entity.Type;
-import com.yeffxyz.blog.entity.User;
+import com.yeffxyz.blog.entity.Article;
+import com.yeffxyz.blog.entity.Category;
+import com.yeffxyz.blog.entity.UserInfo;
 import com.yeffxyz.blog.exception.BusinessException;
 import com.yeffxyz.blog.service.BlogService;
 import com.yeffxyz.blog.service.TypeService;
@@ -39,31 +39,31 @@ public class BlogController {
      * @return 跳转结果
      */
     @GetMapping("/blogs/input")
-    public BaseResponse input(HttpServletRequest request) {
+    public BaseResponse<ResultCode> input(HttpServletRequest request) {
         request.setAttribute("types", typeService.getAllType());
-        request.setAttribute("blog", new Blog());
+        request.setAttribute("blog", new Article());
         return ResultUtils.success(ResultCode.SUCCESS);
     }
 
     /**
      * 博客新增
      *
-     * @param blog    新增博客
+     * @param article    新增博客
      * @param request 前端数据
      * @return 新增结果
      */
     @PostMapping("/blogs")
-    public BaseResponse<ResultCode> addBlog(Blog blog, HttpServletRequest request) {
+    public BaseResponse<ResultCode> addBlog(Article article, HttpServletRequest request) {
         //新增的时候需要传递blog对象，blog对象需要有user
-        blog.setUser((User) request.getAttribute("user"));
+        article.setUser((UserInfo) request.getAttribute("user"));
         //设置blog的type
-        blog.setType(typeService.getType(blog.getType().getId()));
+        article.setCategory(typeService.getType(article.getCategory().getId()));
         //设置blog中typeId属性
-        blog.setTypeId(blog.getType().getId());
+        article.setTypeId(article.getCategory().getId());
         //设置用户id
-        blog.setUserId(blog.getUser().getId());
+        article.setUserId(article.getUser().getId());
 
-        int b = blogService.saveBlog(blog);
+        int b = blogService.saveBlog(article);
         if (b == 0) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "新增失败");
         } else {
@@ -85,8 +85,8 @@ public class BlogController {
         //按照排序字段 倒序 排序
         String orderBy = "update_time desc";
         PageHelper.startPage(pageNum, 10, orderBy);
-        List<Blog> list = blogService.getAllBlog();
-        PageInfo<Blog> pageInfo = new PageInfo<>(list);
+        List<Article> list = blogService.getAllBlog();
+        PageInfo<Article> pageInfo = new PageInfo<>(list);
         request.setAttribute("types", typeService.getAllType());
         request.setAttribute("pageInfo", pageInfo);
         return ResultUtils.success(ResultCode.SUCCESS);
@@ -114,22 +114,22 @@ public class BlogController {
      */
     @GetMapping("/blogs/{id}/input")
     public BaseResponse<ResultCode> editInput(@PathVariable Long id, HttpServletRequest request) {
-        Blog blogById = blogService.getBlogById(id);
-        List<Type> allType = typeService.getAllType();
-        request.setAttribute("blog", blogById);
-        request.setAttribute("types", allType);
+        Article articleById = blogService.getBlogById(id);
+        List<Category> allCategory = typeService.getAllType();
+        request.setAttribute("blog", articleById);
+        request.setAttribute("types", allCategory);
         return ResultUtils.success(ResultCode.SUCCESS);
     }
 
     /**
      * 编辑修改文章
      *
-     * @param blog 博客
+     * @param article 博客
      * @return 修改结果情况
      */
     @PostMapping("/blogs/{id}")
-    public BaseResponse<ResultCode> editPost(@Valid Blog blog) {
-        int b = blogService.updateBlog(blog);
+    public BaseResponse<ResultCode> editPost(@Valid Article article) {
+        int b = blogService.updateBlog(article);
         if (b == 0) {
             throw new BusinessException(ResultCode.PARAMS_ERROR, "修改失败");
         } else {
@@ -140,17 +140,17 @@ public class BlogController {
     /**
      * 搜索博客管理列表
      *
-     * @param blog    博客
+     * @param article    博客
      * @param request 前端数据
      * @param pageNum 页数
      * @return 查询结果情况
      */
     @PostMapping("/blogs/search")
-    public BaseResponse<ResultCode> search(Blog blog, HttpServletRequest request,
+    public BaseResponse<ResultCode> search(Article article, HttpServletRequest request,
                                            @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) {
-        List<Blog> blogBySearch = blogService.searchByTitleAndType(blog);
+        List<Article> articleBySearches = blogService.searchByTitleAndType(article);
         PageHelper.startPage(pageNum, 10);
-        PageInfo<Blog> pageInfo = new PageInfo<>(blogBySearch);
+        PageInfo<Article> pageInfo = new PageInfo<>(articleBySearches);
         request.setAttribute("pageInfo", pageInfo);
         return ResultUtils.success(ResultCode.SUCCESS);
     }

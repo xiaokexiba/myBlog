@@ -1,13 +1,12 @@
-package com.yeffxyz.blog.controller.admin;
+package com.yeffxyz.blog.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yeffxyz.blog.common.BaseResponse;
 import com.yeffxyz.blog.common.ResultCode;
 import com.yeffxyz.blog.common.ResultUtils;
-import com.yeffxyz.blog.entity.Type;
+import com.yeffxyz.blog.entity.Category;
 import com.yeffxyz.blog.service.TypeService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 
@@ -35,44 +34,44 @@ public class TypeController {
     //第一页，每页五条数据
     //select * from hospital limit 0,5
     //公共方法，返回值是result类型的json数据，请求路径获取
-    public BaseResponse<Page<Type>> types(@PathVariable Long pageNumber,
-                                          @PathVariable Long pageSize) {
+    public BaseResponse<Page<Category>> types(@PathVariable Long pageNumber,
+                                              @PathVariable Long pageSize) {
         //构造器
-        Page<Type> p = new Page<>(pageNumber, pageSize);
-        Page<Type> page = typeService.page(p);
+        Page<Category> p = new Page<>(pageNumber, pageSize);
+        Page<Category> page = typeService.page(p);
         return ResultUtils.success(page);
     }
 
     /**
      * 增加分类
      *
-     * @param type 类别
+     * @param category 类别
      * @return 分类结果
      */
     @PostMapping("/save")
-    public BaseResponse addType(@RequestBody Type type) {
-        if (type == null) {
+    public BaseResponse addType(@RequestBody Category category) {
+        if (category == null) {
             return ResultUtils.error(ResultCode.NULL_ERROR);
         }
-        return typeService.save(type) ? ResultUtils.success(ResultCode.SUCCESS)
+        return typeService.save(category) ? ResultUtils.success(ResultCode.SUCCESS)
                 : ResultUtils.error(ResultCode.SYSTEM_ERROR);
     }
 
     /**
      * 编辑修改分类
      *
-     * @param type 修改类别
+     * @param category 修改类别
      * @return 修改结果
      */
     @PostMapping("/update")
     //update hospital_set set hosname = '西安医院' where id = 10;
     //接收Post请求返回json数据
-    public BaseResponse<ResultCode> update(@RequestBody Type type) {
-        Type t = typeService.getTypeByName(type.getName());
+    public BaseResponse<ResultCode> update(@RequestBody Category category) {
+        Category t = typeService.getTypeByName(category.getName());
         if (t != null) {
             return ResultUtils.error(ResultCode.FAIL, "不能添加重复的分类");
         }
-        boolean b = typeService.updateById(type);
+        boolean b = typeService.updateById(category);
         if (b) {
             return ResultUtils.success(ResultCode.SUCCESS);
         } else {
