@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 用户角色关联
+ * 用户角色关联实体类
  *
  * @author xoke
  * @date 2022/8/6

@@ -1,17 +1,15 @@
 package com.yeffxyz.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
- * 访问用户实体类
+ * 用户信息实体类
  *
  * @author xoke
  * @date 2022/7/23
@@ -24,7 +22,7 @@ import java.util.Date;
 public class UserInfo {
 
     /**
-     * 主键id
+     * 用户id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -57,11 +55,13 @@ public class UserInfo {
     /**
      * 用户创建时间
      */
-    private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     /**
      * 用户最近更新时间
      */
-    private Date updateTime;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 
 }

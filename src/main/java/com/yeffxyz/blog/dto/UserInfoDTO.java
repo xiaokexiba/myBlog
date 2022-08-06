@@ -147,5 +147,5 @@ public class UserInfoDTO implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    
+
 }

@@ -8,10 +8,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * 用户账号
+ * 用户账号实体类
  *
  * @author xoke
  * @date 2022/8/6
@@ -63,6 +64,11 @@ public class UserAuth {
      * 创建时间
      */
     private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    private LocalDateTime updateTime;
 
     /**
      * 最近登录时间
