@@ -1,12 +1,10 @@
 package com.yeffxyz.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +18,26 @@ import java.util.List;
 @TableName(value = "t_type")
 public class Category implements Serializable {
     /**
-     * 主键id
+     * id
      */
-    @TableId(type = IdType.AUTO)
-    private Long id;
-    /**
-     * 类型名称
-     */
-    private String name;
-    /**
-     * 属于同一类型的博客集合
-     */
-    private List<Article> articles = new ArrayList<>();
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    /**
+     * 分类名
+     */
+    private String categoryName;
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
+
 }

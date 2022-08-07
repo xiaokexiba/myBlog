@@ -1,7 +1,11 @@
 package com.yeffxyz.blog.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yeffxyz.blog.dto.UserOnlineDTO;
 import com.yeffxyz.blog.entity.UserInfo;
+import com.yeffxyz.blog.vo.ConditionVO;
+import com.yeffxyz.blog.vo.EmailVO;
 import com.yeffxyz.blog.vo.UserInfoVO;
 import com.yeffxyz.blog.vo.UserRoleVO;
 import org.springframework.stereotype.Service;
@@ -17,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UserInfoService extends IService<UserInfo> {
 
     /**
-     * 修改用户资料
+     * 修改用户信息
      *
-     * @param userInfoVO 用户资料
+     * @param userInfoVO 用户信息
      */
     void updateUserInfo(UserInfoVO userInfoVO);
 
