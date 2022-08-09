@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 用户角色选项
+ * 用户角色选项DTO
  *
  * @author xoke
  * @date 2022/8/7

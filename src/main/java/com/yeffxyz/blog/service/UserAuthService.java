@@ -7,6 +7,8 @@ import com.yeffxyz.blog.vo.ConditionVO;
 import com.yeffxyz.blog.vo.PasswordVO;
 import com.yeffxyz.blog.vo.UserVO;
 
+import java.util.List;
+
 /**
  * 用户账号业务层接口
  *
@@ -26,7 +28,7 @@ public interface UserAuthService extends IService<UserAuth> {
      * 获取用户区域分布
      *
      * @param conditionVO 条件签证官
-     * @return {@link List<UserAreaDTO>} 用户区域分布
+     * @return {@link List <UserAreaDTO>} 用户区域分布
      */
     List<UserAreaDTO> listUserAreas(ConditionVO conditionVO);
 

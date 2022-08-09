@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 资源角色
+ * 资源角色DTO
  *
  * @author xoke
  * @date 2022/8/7

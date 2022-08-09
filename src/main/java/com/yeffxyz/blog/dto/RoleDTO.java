@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 角色
+ * 角色DTO
  *
  * @author xoke
  * @date 2022/8/7

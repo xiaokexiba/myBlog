@@ -11,7 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 邮箱
+ * 邮箱VO
  *
  * @author xoke
  * @date 2022/8/7

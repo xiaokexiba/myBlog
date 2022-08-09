@@ -1,26 +1,26 @@
 package com.yeffxyz.blog.dto;
 
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.yeffxyz.blog.constant.CommonConst.FALSE;
+
 /**
- * 用户登录信息DTO
+ * 用户详细信息DTO
  *
  * @author xoke
- * @date 2022/8/6
+ * @date 2022/8/9
  */
 @Data
-@Builder
-public class UserInfoDTO implements UserDetails {
+public class UserDetailDTO implements UserDetails {
 
     /**
      * 用户账号id
@@ -80,12 +80,17 @@ public class UserInfoDTO implements UserDetails {
     /**
      * 点赞文章集合
      */
-    private Set<Integer> articleLikeSet;
+    private Set<Object> articleLikeSet;
 
     /**
      * 点赞评论集合
      */
-    private Set<Integer> commentLikeSet;
+    private Set<Object> commentLikeSet;
+
+    /**
+     * 点赞说说集合
+     */
+    private Set<Object> talkLikeSet;
 
     /**
      * 用户登录ip
@@ -96,6 +101,11 @@ public class UserInfoDTO implements UserDetails {
      * ip来源
      */
     private String ipSource;
+
+    /**
+     * 是否禁用
+     */
+    private Integer isDisable;
 
     /**
      * 浏览器
@@ -110,12 +120,13 @@ public class UserInfoDTO implements UserDetails {
     /**
      * 最近登录时间
      */
-    private Date lastLoginTime;
-
+    private LocalDateTime lastLoginTime;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roleList.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+        return this.roleList.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -135,7 +146,7 @@ public class UserInfoDTO implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.isDisable == FALSE;
     }
 
     @Override
@@ -147,5 +158,4 @@ public class UserInfoDTO implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * 查询条件
+ * 查询条件VO
  *
  * @author xoke
  * @date 2022/8/7
@@ -59,9 +59,9 @@ public class ConditionVO {
     private Integer albumId;
 
     /**
-     * 登录类型
+     * 登录方式
      */
-    @ApiModelProperty(name = "type", value = "登录类型", dataType = "Integer")
+    @ApiModelProperty(name = "type", value = "登录方式", dataType = "Integer")
     private Integer loginType;
 
     /**

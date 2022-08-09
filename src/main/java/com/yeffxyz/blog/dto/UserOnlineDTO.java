@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * 在线用户
+ * 在线用户DTO
  *
  * @author xoke
  * @date 2022/8/7
