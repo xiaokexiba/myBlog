@@ -1,9 +1,9 @@
 package com.yeffxyz.blog.service.Impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yeffxyz.blog.common.ResultCode;
+import com.yeffxyz.blog.enums.StatusCodeEnum;
 import com.yeffxyz.blog.dto.UserDetailDTO;
 import com.yeffxyz.blog.dto.UserOnlineDTO;
 import com.yeffxyz.blog.entity.UserInfo;
@@ -11,12 +11,14 @@ import com.yeffxyz.blog.entity.UserRole;
 import com.yeffxyz.blog.enums.FilePathEnum;
 import com.yeffxyz.blog.exception.BusinessException;
 import com.yeffxyz.blog.mapper.UserInfoMapper;
+import com.yeffxyz.blog.service.RedisService;
 import com.yeffxyz.blog.service.UserInfoService;
 import com.yeffxyz.blog.service.UserRoleService;
 import com.yeffxyz.blog.util.UserUtils;
 import com.yeffxyz.blog.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +28,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.yeffxyz.blog.constant.RedisPrefixConst.USER_CODE_KEY;
 import static com.yeffxyz.blog.util.PageUtils.getLimitCurrent;
 import static com.yeffxyz.blog.util.PageUtils.getSize;
 
@@ -44,6 +47,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
 
     @Resource
     private UserRoleService userRoleService;
+
+    @Resource
+    private RedisService redisService;
+
+    @Resource
+    private SessionRegistry sessionRegistry;
 
     /**
      * 修改用户信息
@@ -88,7 +97,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     @Override
     public void saveUserEmail(EmailVO emailVO) {
         if (!emailVO.getCode().equals(redisService.get(USER_CODE_KEY + emailVO.getEmail()).toString())) {
-            throw new BusinessException(ResultCode.FAIL, "验证码错误！");
+            throw new BusinessException(StatusCodeEnum.FAIL, "验证码错误！");
         }
         UserInfo userInfo = UserInfo.builder()
                 .id(UserUtils.getLoginUser().getUserInfoId().longValue())

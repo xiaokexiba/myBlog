@@ -1,6 +1,6 @@
 package com.yeffxyz.blog.exception;
 
-import com.yeffxyz.blog.common.ResultCode;
+import com.yeffxyz.blog.enums.StatusCodeEnum;
 
 /**
  * 自定义异常类
@@ -19,15 +19,15 @@ public class BusinessException extends RuntimeException {
         this.description = description;
     }
 
-    public BusinessException(ResultCode resultCode) {
-        super(resultCode.getMessage());
-        this.code = resultCode.getCode();
-        this.description = resultCode.getDescription();
+    public BusinessException(StatusCodeEnum statusCodeEnum) {
+        super(statusCodeEnum.getMessage());
+        this.code = statusCodeEnum.getCode();
+        this.description = statusCodeEnum.getDescription();
     }
 
-    public BusinessException(ResultCode resultCode, String description) {
-        super(resultCode.getMessage());
-        this.code = resultCode.getCode();
+    public BusinessException(StatusCodeEnum statusCodeEnum, String description) {
+        super(statusCodeEnum.getMessage());
+        this.code = statusCodeEnum.getCode();
         this.description = description;
     }
 
