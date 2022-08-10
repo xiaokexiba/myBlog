@@ -2,6 +2,8 @@ package com.yeffxyz.blog.exception;
 
 import com.yeffxyz.blog.enums.StatusCodeEnum;
 
+import static com.yeffxyz.blog.enums.StatusCodeEnum.FAIL;
+
 /**
  * 自定义异常类
  *
@@ -9,33 +11,22 @@ import com.yeffxyz.blog.enums.StatusCodeEnum;
  */
 public class BusinessException extends RuntimeException {
 
-    private final int code;
+    /**
+     * 错误码
+     */
+    private Integer code = FAIL.getCode();
 
-    private final String description;
+    /**
+     * 错误信息
+     */
+    private final String message;
 
-    public BusinessException(String message, int code, String description) {
-        super(message);
-        this.code = code;
-        this.description = description;
+    public BusinessException(String message) {
+        this.message = message;
     }
 
     public BusinessException(StatusCodeEnum statusCodeEnum) {
-        super(statusCodeEnum.getMessage());
         this.code = statusCodeEnum.getCode();
-        this.description = statusCodeEnum.getDescription();
-    }
-
-    public BusinessException(StatusCodeEnum statusCodeEnum, String description) {
-        super(statusCodeEnum.getMessage());
-        this.code = statusCodeEnum.getCode();
-        this.description = description;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getDescription() {
-        return description;
+        this.message = statusCodeEnum.getDesc();
     }
 }

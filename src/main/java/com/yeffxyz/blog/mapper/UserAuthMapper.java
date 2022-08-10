@@ -1,5 +1,6 @@
 package com.yeffxyz.blog.mapper;
 
+import com.yeffxyz.blog.dto.UserBackDTO;
 import com.yeffxyz.blog.entity.UserAuth;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yeffxyz.blog.vo.ConditionVO;

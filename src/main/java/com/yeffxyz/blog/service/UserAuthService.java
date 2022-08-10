@@ -1,11 +1,11 @@
 package com.yeffxyz.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yeffxyz.blog.dto.UserAreaDTO;
+import com.yeffxyz.blog.dto.UserBackDTO;
 import com.yeffxyz.blog.dto.UserInfoDTO;
 import com.yeffxyz.blog.entity.UserAuth;
-import com.yeffxyz.blog.vo.ConditionVO;
-import com.yeffxyz.blog.vo.PasswordVO;
-import com.yeffxyz.blog.vo.UserVO;
+import com.yeffxyz.blog.vo.*;
 
 import java.util.List;
 
@@ -48,12 +48,12 @@ public interface UserAuthService extends IService<UserAuth> {
     UserInfoDTO qqLogin(QQLoginVO qqLoginVO);
 
     /**
-     * 微博登录
+     * 微信登录
      *
-     * @param weiboLoginVO 微博登录信息
+     * @param weChatLoginVO 微信登录信息
      * @return 用户登录信息
      */
-    UserInfoDTO weiboLogin(WeiboLoginVO weiboLoginVO);
+    UserInfoDTO weChatLogin(WeChatLoginVO weChatLoginVO);
 
     /**
      * 修改密码
