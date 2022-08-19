@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * @author xoke
  */
+@Repository
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 
 }

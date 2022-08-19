@@ -6,6 +6,7 @@ import com.yeffxyz.blog.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yeffxyz.blog.vo.ConditionVO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author xoke
  * @date 2022/8/7
  */
+@Repository
 public interface RoleMapper extends BaseMapper<Role> {
 
     /**

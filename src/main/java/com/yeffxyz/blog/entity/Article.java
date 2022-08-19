@@ -1,10 +1,12 @@
 package com.yeffxyz.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,83 +18,77 @@ import java.util.List;
  * @date 2022/7/23
  */
 @Data
-@TableName(value = "t_blog")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName("tb_article")
 public class Article {
     /**
      * 主键id
      */
-    @TableId(type = IdType.AUTO)
-    private Long id;
-    /**
-     * 博客标题
-     */
-    private String title;
-    /**
-     * 博客内容
-     */
-    private String content;
-    /**
-     * 首页图片
-     */
-    private String firstPicture;
-    /**
-     * 标签
-     */
-    private String flag;
-    /**
-     * 浏览次数
-     */
-    private Integer views;
-    /**
-     * 是否开启赞赏
-     */
-    private boolean appreciation;
-    /**
-     * 是否开启版权
-     */
-    private boolean copyright;
-    /**
-     * 是否开启评论
-     */
-    private boolean commentable;
-    /**
-     * 是否发布
-     */
-    private boolean published;
-    /**
-     * 是否推荐
-     */
-    public boolean recommend;
-    /**
-     * 评论次数
-     */
-    public Integer commentCount;
-    /**
-     * 博客最初的创建时间
-     */
-    private Date createTime;
-    /**
-     * 博客最近一次修改时间
-     */
-    private Date updateTime;
-    /**
-     * 博客描述
-     */
-    private String description;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
-     * 博客所属类型
+     * 作者
      */
-    private Category category;
-    private UserInfo user;
+    private Integer userId;
+
     /**
-     * 博客类型id
+     * 文章分类
      */
-    private Long typeId;
-    private Long userId;
+    private Integer categoryId;
+
     /**
-     * 博客下的所有评论集合
+     * 文章缩略图
      */
-    private List<Comment> comments = new ArrayList<>();
+    private String articleCover;
+
+    /**
+     * 标题
+     */
+    private String articleTitle;
+
+    /**
+     * 内容
+     */
+    private String articleContent;
+
+    /**
+     * 文章类型
+     */
+    private Integer type;
+
+    /**
+     * 原文链接
+     */
+    private String originalUrl;
+
+    /**
+     * 是否置顶
+     */
+    private Integer isTop;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDelete;
+
+    /**
+     * 文章状态 1.公开 2.私密 3.评论可见
+     */
+    private Integer status;
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 
 }

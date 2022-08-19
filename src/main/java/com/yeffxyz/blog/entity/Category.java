@@ -1,7 +1,10 @@
 package com.yeffxyz.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,6 +18,9 @@ import java.util.List;
  * @date 2022/7/23
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName(value = "t_type")
 public class Category implements Serializable {
     /**

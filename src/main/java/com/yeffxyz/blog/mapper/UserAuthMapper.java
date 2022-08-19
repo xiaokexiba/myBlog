@@ -14,6 +14,7 @@ import java.util.List;
  * @author xoke
  * @date 2022/7/23
  */
+@Repository
 public interface UserAuthMapper extends BaseMapper<UserAuth> {
 
     /**
