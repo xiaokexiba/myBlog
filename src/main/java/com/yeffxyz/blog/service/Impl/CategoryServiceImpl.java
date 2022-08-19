@@ -17,6 +17,7 @@ import com.yeffxyz.blog.util.PageUtils;
 import com.yeffxyz.blog.vo.CategoryVO;
 import com.yeffxyz.blog.vo.ConditionVO;
 import com.yeffxyz.blog.vo.PageResult;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.Objects;
  * @author xoke
  * @date 2022/8/19
  */
+@Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
     @Resource
