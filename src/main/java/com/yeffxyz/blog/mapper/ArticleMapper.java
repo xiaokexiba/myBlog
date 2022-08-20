@@ -1,5 +1,6 @@
 package com.yeffxyz.blog.mapper;
 
+import com.yeffxyz.blog.dto.*;
 import com.yeffxyz.blog.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yeffxyz.blog.vo.ConditionVO;
@@ -37,30 +38,30 @@ public interface ArticleMapper extends BaseMapper<Article> {
     /**
      * 根据条件查询文章
      *
-     * @param current   页码
-     * @param size      大小
-     * @param condition 条件
+     * @param current     页码
+     * @param size        大小
+     * @param conditionVO 条件
      * @return 文章列表
      */
-    List<ArticlePreviewDTO> listArticlesByCondition(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
+    List<ArticlePreviewDTO> listArticlesByCondition(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO conditionVO);
 
     /**
      * 查询后台文章
      *
-     * @param current   页码
-     * @param size      大小
-     * @param condition 条件
+     * @param current     页码
+     * @param size        大小
+     * @param conditionVO 条件
      * @return 文章列表
      */
-    List<ArticleBackDTO> listArticleBacks(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
+    List<ArticleBackDTO> listArticleBacks(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO conditionVO);
 
     /**
      * 查询后台文章总量
      *
-     * @param condition 条件
+     * @param conditionVO 条件
      * @return 文章总量
      */
-    Integer countArticleBacks(@Param("condition") ConditionVO condition);
+    Integer countArticleBacks(@Param("condition") ConditionVO conditionVO);
 
     /**
      * 查看文章的推荐文章
