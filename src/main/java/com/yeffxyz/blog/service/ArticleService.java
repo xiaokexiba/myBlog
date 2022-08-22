@@ -43,7 +43,15 @@ public interface ArticleService extends IService<Article> {
      * @param conditionVO 查询条件
      * @return 文章列表
      */
-    ArticlePreviewListDTO listArticleByCondition(ConditionVO conditionVO);
+    ArticlePreviewListDTO listArticlesByCondition(ConditionVO conditionVO);
+
+    /**
+     * 搜索文章
+     *
+     * @param conditionVO 查询条件
+     * @return 文章列表
+     */
+    List<ArticleSearchDTO> listArticlesBySearch(ConditionVO conditionVO);
 
     /**
      * 根据id查看后台文章

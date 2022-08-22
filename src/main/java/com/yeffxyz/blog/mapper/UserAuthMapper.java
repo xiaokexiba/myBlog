@@ -5,6 +5,7 @@ import com.yeffxyz.blog.entity.UserAuth;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yeffxyz.blog.vo.ConditionVO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
