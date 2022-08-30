@@ -1,5 +1,6 @@
 package com.yeffxyz.blog.service;
 
+import com.yeffxyz.blog.dto.TagBackDTO;
 import com.yeffxyz.blog.dto.TagDTO;
 import com.yeffxyz.blog.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -27,18 +28,18 @@ public interface TagService extends IService<Tag> {
     /**
      * 查询后台标签
      *
-     * @param condition 条件
+     * @param conditionVO 条件
      * @return {@link PageResult<TagBackDTO>} 标签列表
      */
-    PageResult<TagBackDTO> listTagBackDTO(ConditionVO condition);
+    PageResult<TagBackDTO> listTagBackDTO(ConditionVO conditionVO);
 
     /**
      * 搜索文章标签
      *
-     * @param condition 条件
+     * @param conditionVO 条件
      * @return {@link List<TagDTO>} 标签列表
      */
-    List<TagDTO> listTagsBySearch(ConditionVO condition);
+    List<TagDTO> listTagsBySearch(ConditionVO conditionVO);
 
     /**
      * 删除标签
