@@ -16,10 +16,7 @@ import com.yeffxyz.blog.exception.BusinessException;
 import com.yeffxyz.blog.mapper.ArticleMapper;
 import com.yeffxyz.blog.mapper.ArticleTagMapper;
 import com.yeffxyz.blog.mapper.CategoryMapper;
-import com.yeffxyz.blog.service.ArticleService;
-import com.yeffxyz.blog.service.ArticleTagService;
-import com.yeffxyz.blog.service.RedisService;
-import com.yeffxyz.blog.service.TagService;
+import com.yeffxyz.blog.service.*;
 import com.yeffxyz.blog.util.BeanCopyUtils;
 import com.yeffxyz.blog.util.CommonUtils;
 import com.yeffxyz.blog.util.PageUtils;
@@ -351,7 +348,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public void deleteArticles(List<Integer> articleIdList) {
         // 删除文章标签关联
-        articleTagMapper.delete(new LambdaQueryWrapper<AritcleTag>()
+        articleTagMapper.delete(new LambdaQueryWrapper<ArticleTag>()
                 .in(ArticleTag::getArticleId, articleIdList));
         // 删除文章
         articleMapper.deleteBatchIds(articleIdList);
