@@ -1,10 +1,27 @@
 package com.yeffxyz.blog.service.Impl;
 
-import com.yeffxyz.blog.dto.BlogBackInfoDTO;
-import com.yeffxyz.blog.dto.BlogHomeInfoDTO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.yeffxyz.blog.dto.*;
+import com.yeffxyz.blog.entity.Article;
+import com.yeffxyz.blog.mapper.*;
 import com.yeffxyz.blog.service.BlogInfoService;
+import com.yeffxyz.blog.service.PageService;
+import com.yeffxyz.blog.service.RedisService;
+import com.yeffxyz.blog.util.BeanCopyUtils;
 import com.yeffxyz.blog.vo.BlogInfoVO;
+import com.yeffxyz.blog.vo.PageVO;
 import com.yeffxyz.blog.vo.WebsiteConfigVO;
+
+import javax.annotation.Resource;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.yeffxyz.blog.constant.CommonConst.FALSE;
+import static com.yeffxyz.blog.constant.RedisPrefixConst.ARTICLE_VIEWS_COUNT;
+import static com.yeffxyz.blog.constant.RedisPrefixConst.BLOG_VIEWS_COUNT;
+import static com.yeffxyz.blog.enums.ArticleStatusEnum.PUBLIC;
 
 /**
  * 博客信息业务层接口实现类
@@ -13,6 +30,24 @@ import com.yeffxyz.blog.vo.WebsiteConfigVO;
  * @date 2022/8/31
  */
 public class BlogInfoServiceImpl implements BlogInfoService {
+
+    @Resource
+    private ArticleMapper articleMapper;
+    @Resource
+    private CategoryMapper categoryMapper;
+    @Resource
+    private TagMapper tagMapper;
+    @Resource
+    private RedisService redisService;
+    @Resource
+    private PageService pageService;
+    @Resource
+    private MessageMapper messageMapper;
+    @Resource
+    private UserInfoMapper userInfoMapper;
+    @Resource
+    private UniqueViewService uniqueViewService;
+
     /**
      * 获取博客首页信息
      *
@@ -20,7 +55,30 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      */
     @Override
     public BlogHomeInfoDTO getBlogHomeInfo() {
-        return null;
+        // 查询文章数量
+        Integer articleCount = articleMapper.selectCount(new LambdaQueryWrapper<Article>()
+                .eq(Article::getStatus, PUBLIC.getStatus())
+                .eq(Article::getIsDelete, FALSE)).intValue();
+        // 查询分类数量
+        Integer categoryCount = categoryMapper.selectCount(null).intValue();
+        // 查询标签数量
+        Integer tagCount = tagMapper.selectCount(null).intValue();
+        // 查询访问量
+        Object count = redisService.get(BLOG_VIEWS_COUNT);
+        String viewsCount = Optional.ofNullable(count).orElse(0).toString();
+        // 查询网站配置
+        WebsiteConfigVO websiteConfigVO = this.getWebsiteConfig();
+        // 查询页面图片
+        List<PageVO> pageVOList = pageService.listPages();
+        // 封装数据
+        return BlogHomeInfoDTO.builder()
+                .articleCount(articleCount)
+                .categoryCount(categoryCount)
+                .tagCount(tagCount)
+                .viewsCount(viewsCount)
+                .websiteConfig(websiteConfigVO)
+                .pageList(pageVOList)
+                .build();
     }
 
     /**
@@ -30,7 +88,42 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      */
     @Override
     public BlogBackInfoDTO getBlogBackInfo() {
-        return null;
+        // 查询访问量
+        Object count = redisService.get(BLOG_VIEWS_COUNT);
+        Integer viewsCount = Integer.parseInt(Optional.ofNullable(count).orElse(0).toString());
+        // 查询留言量
+        Integer messageCount = messageMapper.selectCount(null).intValue();
+        // 查询用户量
+        Integer userCount = userInfoMapper.selectCount(null).intValue();
+        // 查询文章数量
+        Integer articleCount = articleMapper.selectCount(new LambdaQueryWrapper<Article>()
+                .eq(Article::getIsDelete, FALSE)).intValue();
+        // 查询一周用户量
+        List<UniqueViewDTO> uniqueViewDTOList = uniqueViewService.listUniqueViews();
+        // 查询文章统计
+        List<ArticleStatisticsDTO> articleStatisticsDTOList = articleMapper.listArticleStatistics();
+        // 查询分类数据
+        List<CategoryDTO> categoryDTOList = categoryMapper.listCategoryDTO();
+        // 查询标签数据
+        List<TagDTO> tagDTOList = BeanCopyUtils.copyList(tagMapper.selectList(null), TagDTO.class);
+        // 查询redis访问量前五的文章
+        Map<Object, Double> articleMap = redisService.zReverseRangeWithScore(ARTICLE_VIEWS_COUNT, 0, 4);
+        BlogBackInfoDTO blogBackInfoDTO = BlogBackInfoDTO.builder()
+                .articleStatisticsList(articleStatisticsDTOList)
+                .tagDTOList(tagDTOList)
+                .viewsCount(viewsCount)
+                .messageCount(messageCount)
+                .userCount(userCount)
+                .articleCount(articleCount)
+                .categoryDTOList(categoryDTOList)
+                .uniqueViewDTOList(uniqueViewDTOList)
+                .build();
+        if (CollectionUtils.isNotEmpty(articleMap)) {
+            // 查询文章排行
+            List<ArticleRankDTO> articleRankDTOList = listArticleRank(articleMap);
+            blogBackInfoDTO.setArticleRankDTOList(articleRankDTOList);
+        }
+        return blogBackInfoDTO;
     }
 
     /**
@@ -79,5 +172,27 @@ public class BlogInfoServiceImpl implements BlogInfoService {
     @Override
     public void report() {
 
+    }
+
+    /**
+     * 查询文章排行
+     *
+     * @param articleMap 文章信息
+     * @return {@link List<ArticleRankDTO>} 文章排行
+     */
+    public List<ArticleRankDTO> listArticleRank(Map<Object, Double> articleMap) {
+        // 提取文章id
+        List<Integer> articleIdList = new ArrayList<>(articleMap.size());
+        articleMap.forEach((key, value) -> articleIdList.add((Integer) key));
+        // 查询文章信息
+        return articleMapper.selectList(new LambdaQueryWrapper<Article>()
+                        .select(Article::getId, Article::getArticleTitle)
+                        .in(Article::getId, articleIdList))
+                .stream().map(article -> ArticleRankDTO.builder()
+                        .articleTitle(article.getArticleTitle())
+                        .viewsCount(articleMap.get(article.getId()).intValue())
+                        .build())
+                .sorted(Comparator.comparingInt(ArticleRankDTO::getViewsCount).reversed())
+                .collect(Collectors.toList());
     }
 }
