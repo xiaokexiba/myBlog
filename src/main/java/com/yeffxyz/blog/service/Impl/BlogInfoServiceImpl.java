@@ -1,26 +1,34 @@
 package com.yeffxyz.blog.service.Impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.yeffxyz.blog.dto.*;
 import com.yeffxyz.blog.entity.Article;
+import com.yeffxyz.blog.entity.WebsiteConfig;
 import com.yeffxyz.blog.mapper.*;
 import com.yeffxyz.blog.service.BlogInfoService;
 import com.yeffxyz.blog.service.PageService;
 import com.yeffxyz.blog.service.RedisService;
 import com.yeffxyz.blog.util.BeanCopyUtils;
+import com.yeffxyz.blog.util.IpUtils;
 import com.yeffxyz.blog.vo.BlogInfoVO;
 import com.yeffxyz.blog.vo.PageVO;
 import com.yeffxyz.blog.vo.WebsiteConfigVO;
+import eu.bitwalker.useragentutils.Browser;
+import eu.bitwalker.useragentutils.OperatingSystem;
+import eu.bitwalker.useragentutils.UserAgent;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.yeffxyz.blog.constant.CommonConst.FALSE;
-import static com.yeffxyz.blog.constant.RedisPrefixConst.ARTICLE_VIEWS_COUNT;
-import static com.yeffxyz.blog.constant.RedisPrefixConst.BLOG_VIEWS_COUNT;
+import static com.yeffxyz.blog.constant.CommonConst.*;
+import static com.yeffxyz.blog.constant.RedisPrefixConst.*;
 import static com.yeffxyz.blog.enums.ArticleStatusEnum.PUBLIC;
 
 /**
@@ -47,6 +55,10 @@ public class BlogInfoServiceImpl implements BlogInfoService {
     private UserInfoMapper userInfoMapper;
     @Resource
     private UniqueViewService uniqueViewService;
+    @Resource
+    private HttpServletRequest request;
+    @Resource
+    private WebsiteConfigMapper websiteConfigMapper;
 
     /**
      * 获取博客首页信息
@@ -133,7 +145,14 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      */
     @Override
     public void updateWebsiteConfig(WebsiteConfigVO websiteConfigVO) {
-
+        // 修改网站配置
+        WebsiteConfig websiteConfig = WebsiteConfig.builder()
+                .id(1)
+                .config(JSON.toJSONString(websiteConfigVO))
+                .build();
+        websiteConfigMapper.updateById(websiteConfig);
+        // 删除缓存
+        redisService.del(WEBSITE_CONFIG);
     }
 
     /**
@@ -143,7 +162,18 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      */
     @Override
     public WebsiteConfigVO getWebsiteConfig() {
-        return null;
+        WebsiteConfigVO websiteConfigVO;
+        // 获取网站缓存
+        Object websiteConfig = redisService.get(WEBSITE_CONFIG);
+        if (Objects.nonNull(websiteConfig)) {
+            websiteConfigVO = JSON.parseObject(websiteConfig.toString(), WebsiteConfigVO.class);
+        } else {
+            // 从数据库中加载
+            String config = websiteConfigMapper.selectById(DEFAULT_CONFIG_ID).getConfig();
+            websiteConfigVO = JSON.parseObject(config, WebsiteConfigVO.class);
+            redisService.set(WEBSITE_CONFIG, config);
+        }
+        return websiteConfigVO;
     }
 
     /**
@@ -153,7 +183,8 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      */
     @Override
     public String getAbout() {
-        return null;
+        Object value = redisService.get(ABOUT);
+        return Objects.nonNull(value) ? value.toString() : "";
     }
 
     /**
@@ -163,7 +194,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      */
     @Override
     public void updateAbout(BlogInfoVO blogInfoVO) {
-
+        redisService.set(ABOUT, blogInfoVO.getAboutContent());
     }
 
     /**
@@ -171,7 +202,32 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      */
     @Override
     public void report() {
-
+        // 获取ip
+        String ipAddress = IpUtils.getIpAddress(request);
+        // 获取访问设备信息
+        UserAgent userAgent = IpUtils.getUserAgent(request);
+        Browser browser = userAgent.getBrowser();
+        OperatingSystem operatingSystem = userAgent.getOperatingSystem();
+        // 生成用户唯一标识
+        String uuid = ipAddress + browser.getName() + operatingSystem.getName();
+        String md5 = DigestUtils.md5DigestAsHex(uuid.getBytes());
+        // 判断是否访问
+        if (!redisService.sIsMember(UNIQUE_VISITOR, md5)) {
+            // 统计游客地域分布
+            String ipSource = IpUtils.getIpSource(ipAddress);
+            if (StringUtils.isNotBlank(ipSource)) {
+                ipSource = ipSource.substring(0, 2)
+                        .replaceAll(PROVINCE, "")
+                        .replaceAll(CITY, "");
+                redisService.hIncr(VISITOR_AREA, ipSource, 1L);
+            } else {
+                redisService.hIncr(VISITOR_AREA, UNKNOWN, 1L);
+            }
+            // 访问量+1
+            redisService.incr(BLOG_VIEWS_COUNT, 1L);
+            // 保存唯一标识
+            redisService.sAdd(UNIQUE_VISITOR, md5);
+        }
     }
 
     /**
