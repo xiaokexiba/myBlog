@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yeffxyz.blog.mapper.ArticleMapper">
+<mapper namespace="com.yeffcc.blog.mapper.ArticleMapper">
 
-    <resultMap id="BaseResultMap" type="com.yeffxyz.blog.entity.Article">
+    <resultMap id="BaseResultMap" type="com.yeffcc.blog.entity.Article">
         <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
@@ -19,7 +19,7 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <resultMap id="articleHomeResultMap" type="com.yeffxyz.blog.dto.ArticleHomeDTO">
+    <resultMap id="articleHomeResultMap" type="com.yeffcc.blog.dto.ArticleHomeDTO">
         <id column="id" property="id"/>
         <result column="article_cover" property="articleCover"/>
         <result column="article_title" property="articleTitle"/>
@@ -29,26 +29,26 @@
         <result column="is_top" property="isTop"/>
         <result column="category_id" property="categoryId"/>
         <result column="category_name" property="categoryName"/>
-        <collection property="tagDTOList" ofType="com.yeffxyz.blog.dto.TagDTO">
+        <collection property="tagDTOList" ofType="com.yeffcc.blog.dto.TagDTO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
 
-    <resultMap id="articlePreviewResultMap" type="com.yeffxyz.blog.dto.ArticlePreviewDTO">
+    <resultMap id="articlePreviewResultMap" type="com.yeffcc.blog.dto.ArticlePreviewDTO">
         <id column="id" property="id"/>
         <result column="article_cover" property="articleCover"/>
         <result column="article_title" property="articleTitle"/>
         <result column="create_time" property="createTime"/>
         <result column="category_id" property="categoryId"/>
         <result column="category_name" property="categoryName"/>
-        <collection property="tagDTOList" ofType="com.yeffxyz.blog.dto.TagDTO">
+        <collection property="tagDTOList" ofType="com.yeffcc.blog.dto.TagDTO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
 
-    <resultMap id="articleResultMap" type="com.yeffxyz.blog.dto.ArticleDTO">
+    <resultMap id="articleResultMap" type="com.yeffcc.blog.dto.ArticleDTO">
         <id column="id" property="id"/>
         <result column="article_cover" property="articleCover"/>
         <result column="article_title" property="articleTitle"/>
@@ -59,13 +59,13 @@
         <result column="update_time" property="updateTime"/>
         <result column="category_id" property="categoryId"/>
         <result column="category_name" property="categoryName"/>
-        <collection property="tagDTOList" ofType="com.yeffxyz.blog.dto.TagDTO">
+        <collection property="tagDTOList" ofType="com.yeffcc.blog.dto.TagDTO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
 
-    <resultMap id="articleBackResultMap" type="com.yeffxyz.blog.dto.ArticleBackDTO">
+    <resultMap id="articleBackResultMap" type="com.yeffcc.blog.dto.ArticleBackDTO">
         <id column="id" property="id"/>
         <result column="article_cover" property="articleCover"/>
         <result column="article_title" property="articleTitle"/>
@@ -75,7 +75,7 @@
         <result column="is_delete" property="isDelete"/>
         <result column="status" property="status"/>
         <result column="category_name" property="categoryName"/>
-        <collection property="tagDTOList" ofType="com.yeffxyz.blog.dto.TagDTO">
+        <collection property="tagDTOList" ofType="com.yeffcc.blog.dto.TagDTO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
         </collection>
@@ -285,7 +285,7 @@
     </select>
 
 
-    <select id="listRecommendArticles" resultType="com.yeffxyz.blog.dto.ArticleRecommendDTO">
+    <select id="listRecommendArticles" resultType="com.yeffcc.blog.dto.ArticleRecommendDTO">
         SELECT id,
                article_title,
                article_cover,
@@ -301,7 +301,7 @@
         ORDER BY is_top DESC, id DESC LIMIT 6
     </select>
 
-    <select id="listArticleStatistics" resultType="com.yeffxyz.blog.dto.ArticleStatisticsDTO">
+    <select id="listArticleStatistics" resultType="com.yeffcc.blog.dto.ArticleStatisticsDTO">
         SELECT DATE_FORMAT(create_time, "%Y-%m-%d") AS date,
             COUNT( 1 ) AS count
         FROM

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yeffxyz.blog.mapper.UniqueViewMapper">
+<mapper namespace="com.yeffcc.blog.mapper.UniqueViewMapper">
 
-    <resultMap id="BaseResultMap" type="com.yeffxyz.blog.entity.UniqueView">
+    <resultMap id="BaseResultMap" type="com.yeffcc.blog.entity.UniqueView">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="viewsCount" column="views_count" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>

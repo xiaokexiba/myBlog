@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yeffxyz.blog.mapper.MenuMapper">
+<mapper namespace="com.yeffcc.blog.mapper.MenuMapper">
 
-    <resultMap id="BaseResultMap" type="com.yeffxyz.blog.entity.Menu">
+    <resultMap id="BaseResultMap" type="com.yeffcc.blog.entity.Menu">
         <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="path" column="path" jdbcType="VARCHAR"/>
@@ -25,7 +25,7 @@
         is_hidden
     </sql>
 
-    <select id="listMenusByUserInfoId" resultType="com.yeffxyz.blog.entity.Menu">
+    <select id="listMenusByUserInfoId" resultType="com.yeffcc.blog.entity.Menu">
         SELECT DISTINCT m.id,
                         `name`,
                         `path`,

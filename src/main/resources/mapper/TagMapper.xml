@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yeffxyz.blog.mapper.TagMapper">
+<mapper namespace="com.yeffcc.blog.mapper.TagMapper">
 
-    <resultMap id="BaseResultMap" type="com.yeffxyz.blog.entity.Tag">
+    <resultMap id="BaseResultMap" type="com.yeffcc.blog.entity.Tag">
         <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="tagName" column="tag_name" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -17,7 +17,7 @@
         update_time
     </sql>
 
-    <select id="listTagBackDTO" resultType="com.yeffxyz.blog.dto.TagBackDTO">
+    <select id="listTagBackDTO" resultType="com.yeffcc.blog.dto.TagBackDTO">
         SELECT
         t.id,
         tag_name,
