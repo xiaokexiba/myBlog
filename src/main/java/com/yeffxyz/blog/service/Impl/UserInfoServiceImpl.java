@@ -97,7 +97,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     @Override
     public void saveUserEmail(EmailVO emailVO) {
         if (!emailVO.getCode().equals(redisService.get(USER_CODE_KEY + emailVO.getEmail()).toString())) {
-            throw new BusinessException(StatusCodeEnum.FAIL, "验证码错误！");
+            throw new BusinessException("验证码错误！");
         }
         UserInfo userInfo = UserInfo.builder()
                 .id(UserUtils.getLoginUser().getUserInfoId().longValue())

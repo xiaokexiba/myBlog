@@ -1,7 +1,12 @@
 package com.yeffxyz.blog.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,47 +18,68 @@ import java.util.List;
  * @date 2022/7/23
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName("tb_comment")
 public class Comment {
+
     /**
-     * 主键id
+     * id
      */
-    private Long id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
     /**
-     * 用户昵称
+     * 评论用户Id
      */
-    private String nickname;
+    private Integer userId;
+
     /**
-     * 用户邮箱
+     * 回复用户id
      */
-    private String email;
+    private Integer replyUserId;
+
+    /**
+     * 评论主题id
+     */
+    private Integer topicId;
+
     /**
      * 评论内容
      */
-    private String content;
+    private String commentContent;
+
     /**
-     * 用户头像
+     * 父评论id
      */
-    private String avatar;
+    private Integer parentId;
+
     /**
-     * 评论时间
+     * 评论类型 1.文章 2.友链 3.说说
      */
-    private Date createTime;
-    private Long blogId;
-    private Long parentCommentId;
+    private Integer type;
+
     /**
-     * 是否为管理员评论
+     * 是否删除
      */
-    private boolean adminComment;
+    private Integer isDelete;
+
     /**
-     * 评论集合
+     * 是否审核
      */
-    private List<Comment> replyComments = new ArrayList<>();
+    private Integer isReview;
+
     /**
-     * 父评论
+     * 创建时间
      */
-    private Comment parentComment;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
     /**
-     * 父评论的昵称
+     * 修改时间
      */
-    private String parentNickname;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
+
 }
