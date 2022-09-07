@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 错误码
+ * 错误码枚举
  *
  * @author xoke
  */
