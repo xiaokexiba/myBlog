@@ -1,9 +1,7 @@
 package com.yeffcc.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yeffcc.blog.dto.CommentBackDTO;
-import com.yeffcc.blog.dto.CommentDTO;
-import com.yeffcc.blog.dto.ReplyDTO;
+import com.yeffcc.blog.dto.*;
 import com.yeffcc.blog.entity.Comment;
 import com.yeffcc.blog.vo.CommentVO;
 import com.yeffcc.blog.vo.ConditionVO;

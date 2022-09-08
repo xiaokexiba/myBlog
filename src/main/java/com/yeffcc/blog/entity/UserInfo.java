@@ -25,7 +25,7 @@ public class UserInfo {
      * 用户id
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
      * 用户昵称
@@ -46,6 +46,11 @@ public class UserInfo {
      * 用户简介
      */
     private String intro;
+
+    /**
+     * 个人网站
+     */
+    private String webSite;
 
     /**
      * 是否禁用

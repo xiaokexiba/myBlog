@@ -1,6 +1,7 @@
 package com.yeffcc.blog.dto;
 
 import com.yeffcc.blog.constant.CommonConst;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  * @date 2022/8/9
  */
 @Data
+@Builder
 public class UserDetailDTO implements UserDetails {
 
     /**
