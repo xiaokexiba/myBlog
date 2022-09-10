@@ -6,7 +6,6 @@ import com.yeffcc.blog.dto.UserBackDTO;
 import com.yeffcc.blog.dto.UserInfoDTO;
 import com.yeffcc.blog.service.UserAuthService;
 import com.yeffcc.blog.vo.*;
-import com.yeffxyz.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

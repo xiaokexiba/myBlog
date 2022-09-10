@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author xoke
  */
 @SpringBootApplication
-@MapperScan("com.yeffxyz.blog.mapper")
+@MapperScan("com.yeffcc.blog.mapper")
 public class BlogApplication {
 
     public static void main(String[] args) {

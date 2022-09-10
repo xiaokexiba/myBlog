@@ -16,7 +16,6 @@ import com.yeffcc.blog.entity.UserRole;
 import com.yeffcc.blog.enums.FilePathEnum;
 import com.yeffcc.blog.service.UserRoleService;
 import com.yeffcc.blog.util.UserUtils;
-import com.yeffxyz.blog.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -63,7 +62,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     public void updateUserInfo(UserInfoVO userInfoVO) {
         // 封装用户信息
         UserInfo userInfo = UserInfo.builder()
-                .id(UserUtils.getLoginUser().getUserInfoId().longValue())
+                .id(UserUtils.getLoginUser().getUserInfoId())
                 .nickname(userInfoVO.getNickname())
                 .intro(userInfoVO.getIntro())
                 .build();
@@ -82,7 +81,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
         String avatar = uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.AVATAR.getPath());
         // 更新用户信息
         UserInfo userInfo = UserInfo.builder()
-                .id(UserUtils.getLoginUser().getUserInfoId().longValue())
+                .id(UserUtils.getLoginUser().getUserInfoId())
                 .avatar(avatar)
                 .build();
         userInfoMapper.updateById(userInfo);
@@ -100,7 +99,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
             throw new BusinessException("验证码错误！");
         }
         UserInfo userInfo = UserInfo.builder()
-                .id(UserUtils.getLoginUser().getUserInfoId().longValue())
+                .id(UserUtils.getLoginUser().getUserInfoId())
                 .email(emailVO.getEmail())
                 .build();
         userInfoMapper.updateById(userInfo);
@@ -115,7 +114,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     public void updateUserRole(UserRoleVO userRoleVO) {
         // 更新用户角色和昵称
         UserInfo userInfo = UserInfo.builder()
-                .id(userRoleVO.getUserInfoId().longValue())
+                .id(userRoleVO.getUserInfoId())
                 .nickname(userRoleVO.getNickname())
                 .build();
         userInfoMapper.updateById(userInfo);
@@ -140,7 +139,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     public void updateUserDisable(UserDisableVO userDisableVO) {
         // 更新用户禁用状态
         UserInfo userInfo = UserInfo.builder()
-                .id(userDisableVO.getId().longValue())
+                .id(userDisableVO.getId())
                 .isDisable(userDisableVO.getIsDisable())
                 .build();
         userInfoMapper.updateById(userInfo);
