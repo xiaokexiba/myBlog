@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 import static com.yeffcc.blog.constant.RedisPrefixConst.TALK_LIKE_COUNT;
 import static com.yeffcc.blog.constant.RedisPrefixConst.TALK_USER_LIKE;
-import static com.yeffcc.blog.enums.ArticleStatusEnum.PUBLIC;
+import static com.yeffcc.blog.enums.TalkStatusEnum.PUBLIC;
 
 /**
  * 说说业务层接口实现类
