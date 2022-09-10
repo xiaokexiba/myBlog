@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yeffcc.blog.dto.EmailDTO;
+import com.yeffcc.blog.enums.LoginTypeEnum;
 import com.yeffcc.blog.service.BlogInfoService;
 import com.yeffcc.blog.constant.CommonConst;
 import com.yeffcc.blog.dto.UserAreaDTO;
@@ -24,6 +25,8 @@ import com.yeffcc.blog.util.PageUtils;
 import com.yeffcc.blog.util.UserUtils;
 import com.yeffcc.blog.vo.*;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -39,6 +42,8 @@ import java.util.stream.Collectors;
 
 import static com.yeffcc.blog.constant.CommonConst.*;
 import static com.yeffcc.blog.constant.RedisPrefixConst.*;
+import static com.yeffcc.blog.enums.RoleEnum.USER;
+import static com.yeffcc.blog.enums.UserAreaTypeEnum.getUserAreaType;
 import static com.yeffcc.blog.util.CommonUtils.checkEmail;
 import static com.yeffcc.blog.util.CommonUtils.getRandomCode;
 
@@ -130,7 +135,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         // 绑定用户角色
         UserRole userRole = UserRole.builder()
                 .userId(userInfo.getId().intValue())
-                .roleId(RoleEnum.USER.getRoleId())
+                .roleId(USER.getRoleId())
                 .build();
         userRoleMapper.insert(userRole);
         // 新增用户账号

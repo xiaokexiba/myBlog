@@ -9,6 +9,7 @@ import com.yeffcc.blog.dto.*;
 import com.yeffcc.blog.entity.Comment;
 import com.yeffcc.blog.mapper.ArticleMapper;
 import com.yeffcc.blog.mapper.CommentMapper;
+import com.yeffcc.blog.mapper.TalkMapper;
 import com.yeffcc.blog.mapper.UserInfoMapper;
 import com.yeffcc.blog.service.BlogInfoService;
 import com.yeffcc.blog.service.CommentService;
