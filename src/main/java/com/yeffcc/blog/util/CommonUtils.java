@@ -32,7 +32,7 @@ public class CommonUtils {
      * 获取括号内容
      *
      * @param str str
-     * @return {@link String} 括号内容
+     * @return 括号内容
      */
     public static String getBracketsContent(String str) {
         return str.substring(str.indexOf("(") + 1, str.indexOf(")"));
@@ -57,7 +57,7 @@ public class CommonUtils {
      *
      * @param obj   obj
      * @param clazz clazz
-     * @return {@link List<T>}
+     * @return List的T类型
      */
     public static <T> List<T> castList(Object obj, Class<T> clazz) {
         List<T> result = new ArrayList<T>();
@@ -75,7 +75,7 @@ public class CommonUtils {
      *
      * @param obj   obj
      * @param clazz clazz
-     * @return {@link Set<T>}
+     * @return set的T类型
      */
     public static <T> Set<T> castSet(Object obj, Class<T> clazz) {
         Set<T> result = new HashSet<>();

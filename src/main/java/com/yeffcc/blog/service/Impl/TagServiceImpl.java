@@ -56,7 +56,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
      * 查询后台标签
      *
      * @param conditionVO 条件
-     * @return {@link PageResult< TagBackDTO >} 标签列表
+     * @return 标签列表
      */
     @Override
     public PageResult<TagBackDTO> listTagBackDTO(ConditionVO conditionVO) {
@@ -75,7 +75,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
      * 搜索文章标签
      *
      * @param conditionVO 条件
-     * @return {@link List <TagDTO>} 标签列表
+     * @return 标签列表
      */
     @Override
     public List<TagDTO> listTagsBySearch(ConditionVO conditionVO) {

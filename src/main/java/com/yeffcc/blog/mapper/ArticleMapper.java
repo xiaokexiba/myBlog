@@ -74,7 +74,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
     /**
      * 文章统计
      *
-     * @return {@link List <ArticleStatisticsDTO>} 文章统计结果
+     * @return 文章统计结果
      */
     List<ArticleStatisticsDTO> listArticleStatistics();
 

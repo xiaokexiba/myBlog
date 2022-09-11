@@ -72,7 +72,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
      * @return 评论列表
      */
     @Override
-    public PageResult<CommentDTO> listComment(CommentVO commentVO) {
+    public PageResult<CommentDTO> listComments(CommentVO commentVO) {
         // 查询评论量
         Integer commentCount = commentMapper.selectCount(new LambdaQueryWrapper<Comment>()
                 .eq(Objects.nonNull(commentVO.getTopicId()), Comment::getTopicId, commentVO.getTopicId())
@@ -119,7 +119,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
      * @return 回复列表
      */
     @Override
-    public List<ReplyDTO> listReplyByCommentId(Integer commentId) {
+    public List<ReplyDTO> listRepliesByCommentId(Integer commentId) {
         // 转化页码查询评论下的回复
         List<ReplyDTO> replyDTOList = commentMapper.listRepliesByCommentId(PageUtils.getLimitCurrent(), PageUtils.getSize(), commentId);
         // 查询redis的评论点赞数据

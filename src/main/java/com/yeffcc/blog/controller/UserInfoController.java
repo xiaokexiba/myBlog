@@ -31,7 +31,6 @@ public class UserInfoController {
      * 更新用户信息
      *
      * @param userInfoVO 用户信息
-     * @return {@link Result<>}
      */
     @ApiOperation(value = "更新用户信息")
     @PutMapping("/users/info")
@@ -44,7 +43,7 @@ public class UserInfoController {
      * 更新用户头像
      *
      * @param file 文件
-     * @return {@link Result<String>} 头像地址
+     * @return 头像地址
      */
     @ApiOperation(value = "更新用户头像")
     @ApiImplicitParam(name = "file", value = "用户头像", required = true, dataType = "MultipartFile")
@@ -57,7 +56,6 @@ public class UserInfoController {
      * 绑定用户邮箱
      *
      * @param emailVO 邮箱信息
-     * @return {@link Result<>}
      */
     @ApiOperation(value = "绑定用户邮箱")
     @PostMapping("/users/email")
@@ -70,7 +68,6 @@ public class UserInfoController {
      * 修改用户角色
      *
      * @param userRoleVO 用户角色信息
-     * @return {@link Result<>}
      */
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改用户角色")
@@ -84,7 +81,6 @@ public class UserInfoController {
      * 修改用户禁用状态
      *
      * @param userDisableVO 用户禁用信息
-     * @return {@link Result<>}
      */
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改用户禁用状态")
@@ -98,7 +94,7 @@ public class UserInfoController {
      * 查看在线用户
      *
      * @param conditionVO 条件
-     * @return {@link Result<UserOnlineDTO>} 在线用户列表
+     * @return 在线用户列表
      */
     @ApiOperation(value = "查看在线用户")
     @GetMapping("/admin/users/online")
@@ -110,7 +106,6 @@ public class UserInfoController {
      * 下线用户
      *
      * @param userInfoId 用户信息
-     * @return {@link Result<>}
      */
     @ApiOperation(value = "下线用户")
     @DeleteMapping("/admin/users/{userInfoId}/online")

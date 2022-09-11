@@ -7,8 +7,10 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yeffcc.blog.dto.*;
+import com.yeffcc.blog.enums.FileExtEnum;
 import com.yeffcc.blog.mapper.TagMapper;
 import com.yeffcc.blog.service.*;
+import com.yeffcc.blog.strategy.context.UploadStrategyContext;
 import com.yeffcc.blog.vo.*;
 import com.yeffcc.blog.entity.Article;
 import com.yeffcc.blog.entity.ArticleTag;
@@ -301,7 +303,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * 保存文章分类
      *
      * @param articleVO 文章信息
-     * @return {@link Category} 文章分类
+     * @return 文章分类
      */
     private Category saveArticleCategory(ArticleVO articleVO) {
         // 判断分类是否存在
@@ -358,7 +360,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * 导出文章
      *
      * @param articleIdList 文章id列表
-     * @return {@link List}<{@link String}> 文件地址
+     * @return 文件地址
      */
     @Override
     public List<String> exportArticles(List<Integer> articleIdList) {

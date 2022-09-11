@@ -24,7 +24,7 @@ public interface UserAuthMapper extends BaseMapper<UserAuth> {
      * @param current   页码
      * @param size      大小
      * @param condition 条件
-     * @return {@link List <UserBackDTO>} 用户列表
+     * @return 用户列表
      */
     List<UserBackDTO> listUsers(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
 

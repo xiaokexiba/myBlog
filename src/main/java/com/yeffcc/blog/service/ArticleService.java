@@ -108,7 +108,7 @@ public interface ArticleService extends IService<Article> {
      * 导出文章
      *
      * @param articleIdList 文章id列表
-     * @return {@link List}<{@link String}> 文件地址
+     * @return 文件地址
      */
     List<String> exportArticles(List<Integer> articleIdList);
 

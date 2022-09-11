@@ -35,7 +35,7 @@ public enum UserAreaTypeEnum {
      * 获取用户区域类型
      *
      * @param type 类型
-     * @return {@link UserAreaTypeEnum} 用户区域类型枚举
+     * @return 用户区域类型枚举
      */
     public static UserAreaTypeEnum getUserAreaType(Integer type) {
         for (UserAreaTypeEnum value : UserAreaTypeEnum.values()) {

@@ -159,7 +159,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
     /**
      * 获取网站配置
      *
-     * @return {@link WebsiteConfigVO} 网站配置
+     * @return 网站配置
      */
     @Override
     public WebsiteConfigVO getWebsiteConfig() {
@@ -235,7 +235,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
      * 查询文章排行
      *
      * @param articleMap 文章信息
-     * @return {@link List<ArticleRankDTO>} 文章排行
+     * @return 文章排行
      */
     public List<ArticleRankDTO> listArticleRank(Map<Object, Double> articleMap) {
         // 提取文章id

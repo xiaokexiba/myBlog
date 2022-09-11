@@ -29,7 +29,7 @@ public interface TagService extends IService<Tag> {
      * 查询后台标签
      *
      * @param conditionVO 条件
-     * @return {@link PageResult<TagBackDTO>} 标签列表
+     * @return 标签列表
      */
     PageResult<TagBackDTO> listTagBackDTO(ConditionVO conditionVO);
 
@@ -37,7 +37,7 @@ public interface TagService extends IService<Tag> {
      * 搜索文章标签
      *
      * @param conditionVO 条件
-     * @return {@link List<TagDTO>} 标签列表
+     * @return 标签列表
      */
     List<TagDTO> listTagsBySearch(ConditionVO conditionVO);
 

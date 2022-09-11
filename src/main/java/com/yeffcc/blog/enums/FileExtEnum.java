@@ -41,7 +41,7 @@ public enum FileExtEnum {
      * 获取文件格式
      *
      * @param extName 扩展名
-     * @return {@link FileExtEnum} 文件格式
+     * @return 文件格式
      */
     public static FileExtEnum getFileExt(String extName) {
         for (FileExtEnum value : FileExtEnum.values()) {

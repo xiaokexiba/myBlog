@@ -34,7 +34,7 @@ public class RoleController {
     /**
      * 查询用户角色选项
      *
-     * @return {@link Result<UserRoleDTO>} 用户角色选项
+     * @return 用户角色选项
      */
     @ApiOperation(value = "查询用户角色选项")
     @GetMapping("/admin/users/role")
@@ -46,7 +46,7 @@ public class RoleController {
      * 查询角色列表
      *
      * @param conditionVO 条件
-     * @return {@link Result<RoleDTO>} 角色列表
+     * @return 角色列表
      */
     @ApiOperation(value = "查询角色列表")
     @GetMapping("/admin/roles")
@@ -58,7 +58,6 @@ public class RoleController {
      * 保存或更新角色
      *
      * @param roleVO 角色信息
-     * @return {@link Result<>}
      */
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新角色")
@@ -72,7 +71,6 @@ public class RoleController {
      * 删除角色
      *
      * @param roleIdList 角色id列表
-     * @return {@link Result<>}
      */
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "删除角色")

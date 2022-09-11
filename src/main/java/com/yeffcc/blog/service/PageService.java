@@ -31,7 +31,7 @@ public interface PageService extends IService<Page> {
     /**
      * 获取页面列表
      *
-     * @return {@link List<PageVO>} 页面列表
+     * @return 页面列表
      */
     List<PageVO> listPages();
 }

@@ -91,7 +91,7 @@ public class IpUtils {
      * 获取访问设备
      *
      * @param request 请求
-     * @return {@link UserAgent} 访问设备
+     * @return 访问设备
      */
     public static UserAgent getUserAgent(HttpServletRequest request) {
         return UserAgent.parseUserAgentString(request.getHeader("User-Agent"));

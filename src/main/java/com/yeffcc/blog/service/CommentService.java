@@ -26,7 +26,7 @@ public interface CommentService extends IService<Comment> {
      * @param commentVO 评论信息
      * @return 评论列表
      */
-    PageResult<CommentDTO> listComment(CommentVO commentVO);
+    PageResult<CommentDTO> listComments(CommentVO commentVO);
 
     /**
      * 查看评论下的回复
@@ -34,7 +34,7 @@ public interface CommentService extends IService<Comment> {
      * @param commentId 评论id
      * @return 回复列表
      */
-    List<ReplyDTO> listReplyByCommentId(Integer commentId);
+    List<ReplyDTO> listRepliesByCommentId(Integer commentId);
 
     /**
      * 添加评论

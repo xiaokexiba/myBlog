@@ -33,7 +33,7 @@ public interface CategoryMapper extends BaseMapper<Category> {
      * @param current   页码
      * @param size      大小
      * @param condition 条件
-     * @return {@link List<CategoryBackDTO>} 分类列表
+     * @return 分类列表
      */
     List<CategoryBackDTO> listCategoryBackDTO(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
 

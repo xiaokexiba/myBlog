@@ -52,7 +52,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * 查询后台分类
      *
      * @param conditionVO 条件
-     * @return {@link PageResult< CategoryBackDTO >} 后台分类
+     * @return 后台分类
      */
     @Override
     public PageResult<CategoryBackDTO> listBackCategories(ConditionVO conditionVO) {
@@ -71,7 +71,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * 搜索文章分类
      *
      * @param conditionVO 条件
-     * @return {@link List < CategoryOptionDTO >} 分类列表
+     * @return 分类列表
      */
     @Override
     public List<CategoryOptionDTO> listCategoriesBySearch(ConditionVO conditionVO) {

@@ -30,7 +30,7 @@ public interface CategoryService extends IService<Category> {
      * 查询后台分类
      *
      * @param conditionVO 条件
-     * @return {@link PageResult<CategoryBackDTO>} 后台分类
+     * @return 后台分类
      */
     PageResult<CategoryBackDTO> listBackCategories(ConditionVO conditionVO);
 
@@ -38,7 +38,7 @@ public interface CategoryService extends IService<Category> {
      * 搜索文章分类
      *
      * @param conditionVO 条件
-     * @return {@link List<CategoryOptionDTO>} 分类列表
+     * @return 分类列表
      */
     List<CategoryOptionDTO> listCategoriesBySearch(ConditionVO conditionVO);
 

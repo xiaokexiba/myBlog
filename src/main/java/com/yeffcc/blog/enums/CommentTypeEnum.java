@@ -45,7 +45,6 @@ public enum CommentTypeEnum {
      * 获取评论路径
      *
      * @param type 类型
-     * @return {@link String}
      */
     public static String getCommentPath(Integer type) {
         for (CommentTypeEnum value : CommentTypeEnum.values()) {
@@ -60,7 +59,7 @@ public enum CommentTypeEnum {
      * 获取评论枚举
      *
      * @param type 类型
-     * @return {@link CommentTypeEnum}
+     * @return 评论枚举
      */
     public static CommentTypeEnum getCommentEnum(Integer type) {
         for (CommentTypeEnum value : CommentTypeEnum.values()) {

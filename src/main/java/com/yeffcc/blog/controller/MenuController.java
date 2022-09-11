@@ -32,7 +32,7 @@ public class MenuController {
      * 查询菜单列表
      *
      * @param conditionVO 查询条件
-     * @return {@link Result<MenuDTO>} 菜单列表
+     * @return 菜单列表
      */
     @ApiOperation(value = "查询菜单列表")
     @GetMapping("/admin/menus")
@@ -44,7 +44,7 @@ public class MenuController {
      * 新增或修改菜单
      *
      * @param menuVO 菜单
-     * @return {@link Result<>} 操作结果信息
+     * @return 操作结果信息
      */
     @ApiOperation(value = "新增或修改菜单")
     @PostMapping("/admin/menus")
@@ -57,7 +57,7 @@ public class MenuController {
      * 删除菜单
      *
      * @param menuId 菜单id
-     * @return {@link Result<>} 操作结果信息
+     * @return 操作结果信息
      */
     public Result<?> deleteMenu(@PathVariable("menuId") Integer menuId) {
         menuService.deleteMenu(menuId);
@@ -67,7 +67,7 @@ public class MenuController {
     /**
      * 查看角色菜单选项
      *
-     * @return {@link Result<LabelOptionDTO>} 角色菜单选项
+     * @return 角色菜单选项
      */
     public Result<List<LabelOptionDTO>> listMenuOptions() {
         return Result.ok(menuService.listMenuOptions());
@@ -76,7 +76,7 @@ public class MenuController {
     /**
      * 查看当前用户菜单
      *
-     * @return {@link Result<UserMenuDTO>} 当前用户菜单
+     * @return 当前用户菜单
      */
     public Result<List<UserMenuDTO>> listUserMenus() {
         return Result.ok(menuService.listUserMenus());

@@ -31,7 +31,6 @@ public class UserAuthController {
      * 发送邮箱验证码
      *
      * @param username 用户名
-     * @return {@link Result<>}
      */
     @AccessLimit(seconds = 60, maxCount = 1)
     @ApiOperation(value = "发送邮箱验证码")
@@ -46,7 +45,7 @@ public class UserAuthController {
      * 获取用户区域分布
      *
      * @param conditionVO 条件
-     * @return {@link Result<UserAreaDTO>} 用户区域分布
+     * @return 用户区域分布
      */
     @ApiOperation(value = "获取用户区域分布")
     @GetMapping("/admin/users/area")
@@ -58,7 +57,7 @@ public class UserAuthController {
      * 查询后台用户列表
      *
      * @param condition 条件
-     * @return {@link Result<UserBackDTO>} 用户列表
+     * @return 用户列表
      */
     @ApiOperation(value = "查询后台用户列表")
     @GetMapping("/admin/users")
@@ -70,7 +69,6 @@ public class UserAuthController {
      * 用户注册
      *
      * @param user 用户信息
-     * @return {@link Result<>}
      */
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
@@ -83,7 +81,6 @@ public class UserAuthController {
      * 修改密码
      *
      * @param user 用户信息
-     * @return {@link Result<>}
      */
     @ApiOperation(value = "修改密码")
     @PutMapping("/users/password")
@@ -96,7 +93,6 @@ public class UserAuthController {
      * 修改管理员密码
      *
      * @param passwordVO 密码信息
-     * @return {@link Result<>}
      */
     @ApiOperation(value = "修改管理员密码")
     @PutMapping("/admin/users/password")
@@ -109,7 +105,7 @@ public class UserAuthController {
      * 微信登录
      *
      * @param weChatLoginVO 微信登录信息
-     * @return {@link Result<UserInfoDTO>} 用户信息
+     * @return 用户信息
      */
     @ApiOperation(value = "微信登录")
     @PostMapping("/users/oauth/wechat")
@@ -121,7 +117,7 @@ public class UserAuthController {
      * qq登录
      *
      * @param qqLoginVO qq登录信息
-     * @return {@link Result<UserInfoDTO>} 用户信息
+     * @return 用户信息
      */
     @ApiOperation(value = "qq登录")
     @PostMapping("/users/oauth/qq")

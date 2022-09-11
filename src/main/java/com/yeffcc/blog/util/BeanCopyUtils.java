@@ -16,7 +16,7 @@ public class BeanCopyUtils {
      *
      * @param source 源
      * @param target 目标
-     * @return {@link T}
+     * @return 该对象的T类型
      */
     public static <T> T copyObject(Object source, Class<T> target) {
         T temp = null;
@@ -36,7 +36,7 @@ public class BeanCopyUtils {
      *
      * @param source 源
      * @param target 目标
-     * @return {@link List<T>} 集合
+     * @return 该集合的T类型
      */
     public static <T, S> List<T> copyList(List<S> source, Class<T> target) {
         List<T> list = new ArrayList<>();
