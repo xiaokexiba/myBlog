@@ -2,16 +2,20 @@ package com.yeffcc.blog.controller;
 
 import com.yeffcc.blog.dto.BlogBackInfoDTO;
 import com.yeffcc.blog.dto.BlogHomeInfoDTO;
+import com.yeffcc.blog.enums.FilePathEnum;
 import com.yeffcc.blog.service.BlogInfoService;
+import com.yeffcc.blog.strategy.context.UploadStrategyContext;
 import com.yeffcc.blog.vo.BlogInfoVO;
 import com.yeffcc.blog.vo.Result;
 import com.yeffcc.blog.vo.WebsiteConfigVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -28,6 +32,8 @@ public class BlogInfoController {
 
     @Resource
     private BlogInfoService blogInfoService;
+    @Resource
+    private UploadStrategyContext uploadStrategyContext;
 
     /**
      * 获取博客首页信息
@@ -105,7 +111,16 @@ public class BlogInfoController {
         return Result.ok();
     }
 
-    public Result<String> save(){
-        return Result.ok();
+    /**
+     * 上传博客配置图片
+     *
+     * @param file 文件
+     * @return 博客配置图片地址
+     */
+    @ApiOperation(value = "上传博客配置图片")
+    @ApiImplicitParam(name = "file", value = "博客图片", required = true, dataType = "MultipartFile")
+    @PostMapping("/admin/config/images")
+    public Result<String> saveBlogImages(MultipartFile file) {
+        return Result.ok(uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.CONFIG.getPath()));
     }
 }
