@@ -21,6 +21,7 @@ import com.yeffcc.blog.mapper.UserInfoMapper;
 import com.yeffcc.blog.mapper.UserRoleMapper;
 import com.yeffcc.blog.service.RedisService;
 import com.yeffcc.blog.service.UserAuthService;
+import com.yeffcc.blog.strategy.context.SocialLoginStrategyContext;
 import com.yeffcc.blog.util.PageUtils;
 import com.yeffcc.blog.util.UserUtils;
 import com.yeffcc.blog.vo.*;
@@ -41,6 +42,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.yeffcc.blog.constant.CommonConst.*;
+import static com.yeffcc.blog.constant.MQPrefixConst.EMAIL_EXCHANGE;
 import static com.yeffcc.blog.constant.RedisPrefixConst.*;
 import static com.yeffcc.blog.enums.RoleEnum.USER;
 import static com.yeffcc.blog.enums.UserAreaTypeEnum.getUserAreaType;
@@ -198,7 +200,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     @Transactional(rollbackFor = BusinessException.class)
     @Override
     public UserInfoDTO weChatLogin(WeChatLoginVO weChatLoginVO) {
-        return socialLoginStrategyContext.executeLoginStrategy(JSON.toJSONString(weChatLoginVO), LoginTypeEnum.WEIBO);
+        return socialLoginStrategyContext.executeLoginStrategy(JSON.toJSONString(weChatLoginVO), LoginTypeEnum.WECHAT);
     }
 
     /**

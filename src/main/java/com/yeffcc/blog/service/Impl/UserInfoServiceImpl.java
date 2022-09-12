@@ -9,6 +9,7 @@ import com.yeffcc.blog.exception.BusinessException;
 import com.yeffcc.blog.mapper.UserInfoMapper;
 import com.yeffcc.blog.service.RedisService;
 import com.yeffcc.blog.service.UserInfoService;
+import com.yeffcc.blog.strategy.context.UploadStrategyContext;
 import com.yeffcc.blog.vo.*;
 import com.yeffcc.blog.dto.UserDetailDTO;
 import com.yeffcc.blog.dto.UserOnlineDTO;
@@ -43,15 +44,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
 
     @Resource
     private UserInfoMapper userInfoMapper;
-
     @Resource
     private UserRoleService userRoleService;
-
     @Resource
     private RedisService redisService;
-
     @Resource
     private SessionRegistry sessionRegistry;
+    @Resource
+    private UploadStrategyContext uploadStrategyContext;
 
     /**
      * 修改用户信息

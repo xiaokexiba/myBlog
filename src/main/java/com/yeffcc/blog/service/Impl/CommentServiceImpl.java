@@ -20,6 +20,7 @@ import com.yeffcc.blog.util.UserUtils;
 import com.yeffcc.blog.vo.*;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static com.yeffcc.blog.constant.CommonConst.*;
+import static com.yeffcc.blog.constant.MQPrefixConst.EMAIL_EXCHANGE;
 import static com.yeffcc.blog.constant.RedisPrefixConst.COMMENT_LIKE_COUNT;
 import static com.yeffcc.blog.constant.RedisPrefixConst.COMMENT_USER_LIKE;
 import static com.yeffcc.blog.enums.CommentTypeEnum.getCommentEnum;
@@ -58,6 +60,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     private TalkMapper talkMapper;
     @Resource
     private UserInfoMapper userInfoMapper;
+    @Resource
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 网站网址

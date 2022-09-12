@@ -7,6 +7,7 @@ import com.yeffcc.blog.entity.Role;
 import com.yeffcc.blog.entity.RoleMenu;
 import com.yeffcc.blog.entity.RoleResource;
 import com.yeffcc.blog.exception.BusinessException;
+import com.yeffcc.blog.handler.FilterInvocationSecurityMetadataSourceImpl;
 import com.yeffcc.blog.mapper.RoleMapper;
 import com.yeffcc.blog.mapper.UserRoleMapper;
 import com.yeffcc.blog.service.RoleResourceService;
@@ -48,6 +49,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Resource
     private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
 
+    /**
+     * 获取用户角色选项
+     *
+     * @return 角色
+     */
     @Override
     public List<UserRoleDTO> listUserRoles() {
         // 查询角色列表
@@ -56,6 +62,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return BeanCopyUtils.copyList(roleList, UserRoleDTO.class);
     }
 
+    /**
+     * 查询角色列表
+     *
+     * @param conditionVO 条件
+     * @return 角色列表
+     */
     @Override
     public PageResult<RoleDTO> listRoles(ConditionVO conditionVO) {
         // 查询角色列表
@@ -66,6 +78,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return new PageResult<>(roleDTOList, count);
     }
 
+    /**
+     * 保存或更新角色
+     *
+     * @param roleVO 角色
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveOrUpdateRole(RoleVO roleVO) {
@@ -115,6 +132,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         }
     }
 
+    /**
+     * 删除角色
+     * @param roleIdList 角色id列表
+     */
     @Override
     public void deleteRoles(List<Integer> roleIdList) {
         // 判断角色下是否有用户
