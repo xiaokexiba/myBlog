@@ -8,6 +8,7 @@ import static com.yeffcc.blog.enums.StatusCodeEnum.FAIL;
  * 自定义异常类
  *
  * @author xoke
+ * @date 2022/8/23
  */
 public class BusinessException extends RuntimeException {
 

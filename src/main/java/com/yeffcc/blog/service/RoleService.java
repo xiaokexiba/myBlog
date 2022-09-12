@@ -1,7 +1,9 @@
 package com.yeffcc.blog.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.yeffcc.blog.dto.RoleDTO;
 import com.yeffcc.blog.dto.UserRoleDTO;
+import com.yeffcc.blog.entity.Role;
 import com.yeffcc.blog.vo.ConditionVO;
 import com.yeffcc.blog.vo.PageResult;
 import com.yeffcc.blog.vo.RoleVO;
@@ -14,7 +16,7 @@ import java.util.List;
  * @author xoke
  * @date 2022/8/7
  */
-public interface RoleService {
+public interface RoleService extends IService<Role> {
 
     /**
      * 获取用户角色选项
@@ -40,6 +42,7 @@ public interface RoleService {
 
     /**
      * 删除角色
+     *
      * @param roleIdList 角色id列表
      */
     void deleteRoles(List<Integer> roleIdList);

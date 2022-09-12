@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yeffcc.blog.entity.RoleResource;
 import com.yeffcc.blog.mapper.RoleResourceMapper;
 import com.yeffcc.blog.service.RoleResourceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @author xoke
  * @date 2022/8/11
  */
+@Slf4j
 @Service
 public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, RoleResource> implements RoleResourceService {
 }

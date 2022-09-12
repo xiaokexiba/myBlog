@@ -209,7 +209,6 @@ public interface RedisService {
      * @param key   关键
      * @param value 价值
      * @param score 分数
-     * @return {@link Double}
      */
     Double zIncr(String key, Object value, Double score);
 
@@ -219,7 +218,6 @@ public interface RedisService {
      * @param key   关键
      * @param value 价值
      * @param score 分数
-     * @return {@link Double}
      */
     Double zDecr(String key, Object value, Double score);
 
@@ -229,7 +227,6 @@ public interface RedisService {
      * @param key   关键
      * @param start 开始
      * @param end   结束
-     * @return {@link Map<Object, Double>}
      */
     Map<Object, Double> zReverseRangeWithScore(String key, long start, long end);
 
@@ -238,7 +235,6 @@ public interface RedisService {
      *
      * @param key   关键
      * @param value 价值
-     * @return {@link Double}
      */
     Double zScore(String key, Object value);
 
@@ -246,7 +242,6 @@ public interface RedisService {
      * 获取zset所有分数
      *
      * @param key 关键
-     * @return {@link Map}
      */
     Map<Object, Double> zAllScore(String key);
 
@@ -428,7 +423,6 @@ public interface RedisService {
      *
      * @param key   key
      * @param value 值
-     * @return {@link Long}
      */
     Long hyperAdd(String key, Object... value);
 
@@ -436,7 +430,7 @@ public interface RedisService {
      * 获取hyperlog元素数量
      *
      * @param key key
-     * @return {@link Long} 元素数量
+     * @return 元素数量
      */
     Long hyperGet(String... key);
 

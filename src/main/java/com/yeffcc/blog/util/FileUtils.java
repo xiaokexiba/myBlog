@@ -1,7 +1,7 @@
 package com.yeffcc.blog.util;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 文件工具类
@@ -9,7 +9,7 @@ import lombok.extern.log4j.Log4j2;
  * @author xoke
  * @date 2022/9/11
  */
-@Log4j2
+@Slf4j
 public class FileUtils {
 
     /**

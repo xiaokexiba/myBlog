@@ -18,6 +18,7 @@ import com.yeffcc.blog.util.HTMLUtils;
 import com.yeffcc.blog.util.PageUtils;
 import com.yeffcc.blog.util.UserUtils;
 import com.yeffcc.blog.vo.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -44,6 +45,7 @@ import static com.yeffcc.blog.enums.CommentTypeEnum.getCommentPath;
  * @author xoke
  * @date 2022/9/6
  */
+@Slf4j
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         implements CommentService {

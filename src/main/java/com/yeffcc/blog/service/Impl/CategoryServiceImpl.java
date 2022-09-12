@@ -17,6 +17,7 @@ import com.yeffcc.blog.dto.CategoryDTO;
 import com.yeffcc.blog.dto.CategoryOptionDTO;
 import com.yeffcc.blog.entity.Category;
 import com.yeffcc.blog.util.BeanCopyUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,6 +30,7 @@ import java.util.Objects;
  * @author xoke
  * @date 2022/8/19
  */
+@Slf4j
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 

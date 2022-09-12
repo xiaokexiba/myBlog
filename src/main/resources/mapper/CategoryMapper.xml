@@ -34,7 +34,7 @@
         COUNT( a.id ) AS article_count,
         c.create_time
         FROM
-        tb_category c
+        `tb_category` c
         LEFT JOIN tb_article a ON c.id = a.category_id
         <where>
             <if test="condition.keywords != null">

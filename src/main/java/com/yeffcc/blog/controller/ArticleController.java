@@ -176,7 +176,6 @@ public class ArticleController {
      * 删除文章
      *
      * @param articleIdList 文章id列表
-     * @return {@link Result<>}
      */
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "物理删除文章")
@@ -203,7 +202,6 @@ public class ArticleController {
      *
      * @param file 文件
      * @param type 文章类型
-     * @return {@link Result<>}
      */
     @ApiOperation(value = "导入文章")
     @PostMapping("/admin/articles/import")

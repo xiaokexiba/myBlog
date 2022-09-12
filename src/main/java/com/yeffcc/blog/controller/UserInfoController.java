@@ -7,10 +7,10 @@ import com.yeffcc.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import static com.yeffcc.blog.constant.OptTypeConst.UPDATE;
@@ -24,7 +24,8 @@ import static com.yeffcc.blog.constant.OptTypeConst.UPDATE;
 @Api(tags = "用户信息模块")
 @RestController
 public class UserInfoController {
-    @Autowired
+
+    @Resource
     private UserInfoService userInfoService;
 
     /**

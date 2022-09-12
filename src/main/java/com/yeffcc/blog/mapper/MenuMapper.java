@@ -12,7 +12,6 @@ import java.util.List;
  * @author xoke
  * @date 2022/8/16
  */
-@Repository
 public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 根据用户id查询菜单

@@ -17,6 +17,7 @@ import com.yeffcc.blog.dto.UserMenuDTO;
 import com.yeffcc.blog.entity.Menu;
 import com.yeffcc.blog.util.BeanCopyUtils;
 import com.yeffcc.blog.util.UserUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
  * @author xoke
  * @date 2022/8/16
  */
+@Slf4j
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 

@@ -25,6 +25,7 @@ import com.yeffcc.blog.strategy.context.SocialLoginStrategyContext;
 import com.yeffcc.blog.util.PageUtils;
 import com.yeffcc.blog.util.UserUtils;
 import com.yeffcc.blog.vo.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -55,6 +56,7 @@ import static com.yeffcc.blog.util.CommonUtils.getRandomCode;
  * @author xoke
  * @date 2022/8/10
  */
+@Slf4j
 @Service
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> implements UserAuthService {
     @Resource

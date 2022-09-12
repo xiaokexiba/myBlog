@@ -20,6 +20,8 @@ import com.yeffcc.blog.vo.WebsiteConfigVO;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
@@ -38,6 +40,8 @@ import static com.yeffcc.blog.enums.ArticleStatusEnum.PUBLIC;
  * @author xoke
  * @date 2022/8/31
  */
+@Slf4j
+@Service
 public class BlogInfoServiceImpl implements BlogInfoService {
 
     @Resource

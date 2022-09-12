@@ -28,6 +28,7 @@ import static com.yeffcc.blog.constant.OptTypeConst.SAVE_OR_UPDATE;
 @Api(tags = "角色模块")
 @RestController
 public class RoleController {
+
     @Resource
     private RoleService roleService;
 

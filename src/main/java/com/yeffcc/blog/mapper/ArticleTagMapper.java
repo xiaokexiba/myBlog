@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
  * @author xoke
  * @date 2022/8/22
  */
-@Repository
 public interface ArticleTagMapper extends BaseMapper<ArticleTag> {
 
 }

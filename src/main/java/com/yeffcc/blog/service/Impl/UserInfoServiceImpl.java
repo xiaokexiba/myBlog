@@ -17,6 +17,7 @@ import com.yeffcc.blog.entity.UserRole;
 import com.yeffcc.blog.enums.FilePathEnum;
 import com.yeffcc.blog.service.UserRoleService;
 import com.yeffcc.blog.util.UserUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -38,6 +39,7 @@ import static com.yeffcc.blog.util.PageUtils.getSize;
  * @author xoke
  * @date 2022/8/9
  */
+@Slf4j
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
         implements UserInfoService {

@@ -12,8 +12,10 @@ import com.yeffcc.blog.mapper.UserInfoMapper;
 import com.yeffcc.blog.service.RedisService;
 import com.yeffcc.blog.util.IpUtils;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,8 @@ import static com.yeffcc.blog.enums.ZoneEnum.SHANGHAI;
  * @author xoke
  * @date 2022/9/8
  */
+@Slf4j
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource

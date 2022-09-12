@@ -21,6 +21,7 @@ import com.yeffcc.blog.util.PageUtils;
 import com.yeffcc.blog.vo.ConditionVO;
 import com.yeffcc.blog.vo.PageResult;
 import com.yeffcc.blog.vo.RoleVO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +37,10 @@ import java.util.stream.Collectors;
  * @author xoke
  * @date 2022/8/11
  */
+@Slf4j
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
+
     @Resource
     private RoleMapper roleMapper;
     @Resource

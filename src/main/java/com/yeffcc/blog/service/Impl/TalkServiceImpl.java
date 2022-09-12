@@ -16,6 +16,7 @@ import com.yeffcc.blog.util.*;
 import com.yeffcc.blog.vo.ConditionVO;
 import com.yeffcc.blog.vo.PageResult;
 import com.yeffcc.blog.vo.TalkVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ import static com.yeffcc.blog.enums.TalkStatusEnum.PUBLIC;
  * @author xoke
  * @date 2022/9/10
  */
+@Slf4j
 @Service
 public class TalkServiceImpl extends ServiceImpl<TalkMapper, Talk>
         implements TalkService {

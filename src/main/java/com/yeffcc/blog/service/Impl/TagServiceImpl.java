@@ -16,6 +16,7 @@ import com.yeffcc.blog.util.PageUtils;
 import com.yeffcc.blog.vo.ConditionVO;
 import com.yeffcc.blog.vo.PageResult;
 import com.yeffcc.blog.vo.TagVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ import java.util.Objects;
  * @author xoke
  * @date 2022/8/22
  */
+@Slf4j
 @Service
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagService {
 

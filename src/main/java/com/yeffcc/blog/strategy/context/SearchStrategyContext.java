@@ -3,6 +3,8 @@ package com.yeffcc.blog.strategy.context;
 import com.yeffcc.blog.dto.ArticleSearchDTO;
 import com.yeffcc.blog.strategy.SearchStrategy;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
