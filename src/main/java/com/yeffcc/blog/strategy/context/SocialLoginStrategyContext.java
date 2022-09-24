@@ -3,9 +3,11 @@ package com.yeffcc.blog.strategy.context;
 import com.yeffcc.blog.dto.UserInfoDTO;
 import com.yeffcc.blog.enums.LoginTypeEnum;
 import com.yeffcc.blog.strategy.SocialLoginStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,8 +19,7 @@ import java.util.Map;
 @Service
 public class SocialLoginStrategyContext {
 
-    @Resource
-    private Map<String, SocialLoginStrategy> socialLoginStrategyMap;
+    private Map<String, SocialLoginStrategy> socialLoginStrategyMap = new HashMap<>();
 
     /**
      * 执行第三方登录策略

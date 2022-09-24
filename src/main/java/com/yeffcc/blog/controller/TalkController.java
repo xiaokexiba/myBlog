@@ -113,7 +113,7 @@ public class TalkController {
      * @return 说说列表
      */
     @ApiOperation(value = "查看后台说说列表")
-    @PostMapping("/admin/talks")
+    @GetMapping("/admin/talks")
     public Result<PageResult<TalkBackDTO>> listBackTalks(ConditionVO conditionVO) {
         return Result.ok(talkService.listBackTalks(conditionVO));
     }

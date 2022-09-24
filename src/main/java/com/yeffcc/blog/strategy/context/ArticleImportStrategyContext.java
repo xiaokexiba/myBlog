@@ -2,10 +2,12 @@ package com.yeffcc.blog.strategy.context;
 
 import com.yeffcc.blog.enums.MarkdownTypeEnum;
 import com.yeffcc.blog.strategy.ArticleImportStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,8 +19,7 @@ import java.util.Map;
 @Service
 public class ArticleImportStrategyContext {
 
-    @Resource
-    private Map<String, ArticleImportStrategy> articleImportStrategyMap;
+    private Map<String, ArticleImportStrategy> articleImportStrategyMap = new HashMap<>();
 
     /**
      * 导入文章

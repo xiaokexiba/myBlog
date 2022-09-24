@@ -2,12 +2,14 @@ package com.yeffcc.blog.strategy.context;
 
 import com.yeffcc.blog.dto.ArticleSearchDTO;
 import com.yeffcc.blog.strategy.SearchStrategy;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +30,7 @@ public class SearchStrategyContext {
     @Value("${search.mode}")
     private String searchMode;
 
-    @Resource
-    private Map<String, SearchStrategy> searchStrategyMap;
+    private Map<String, SearchStrategy> searchStrategyMap = new HashMap<>();
 
     /**
      * 执行搜索策略

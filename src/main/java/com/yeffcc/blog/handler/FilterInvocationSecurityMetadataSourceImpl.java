@@ -4,6 +4,7 @@ import com.yeffcc.blog.dto.ResourceRoleDTO;
 import com.yeffcc.blog.mapper.RoleMapper;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author xoke
  * @date 2022/9/12
  */
+@Service
 public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocationSecurityMetadataSource {
 
     /**

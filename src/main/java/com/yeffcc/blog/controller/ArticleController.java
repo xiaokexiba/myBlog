@@ -54,7 +54,7 @@ public class ArticleController {
      * @return 文章列表
      */
     @ApiOperation(value = "查询后台文章")
-    @PostMapping("/admin/articles")
+    @GetMapping("/admin/articles")
     public Result<PageResult<ArticleBackDTO>> listArticleBacks(ConditionVO conditionVO) {
         return Result.ok(articleService.listArticleBacks(conditionVO));
     }
@@ -192,7 +192,7 @@ public class ArticleController {
      * @return 文件地址
      */
     @ApiOperation(value = "导出文章")
-    @PostMapping("/admin/articles/import")
+    @PostMapping("/admin/articles/export")
     public Result<List<String>> exportArticles(List<Integer> articleIdList) {
         return Result.ok(articleService.exportArticles(articleIdList));
     }

@@ -33,6 +33,18 @@ server:
   servlet:
     context-path: /api
 
+# 上传模式 可选 oss或local (http://和最后的/一定不能去！！！)
+upload:
+  mode: local
+
+# 搜索模式 可选 elasticsearch或mysql
+search:
+  mode: mysql
+
+# 网站前台域名（邮件通知用）
+website:
+  url: http://www.yeff.cc
+
 
 
 

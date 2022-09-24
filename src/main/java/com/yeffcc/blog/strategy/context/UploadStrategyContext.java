@@ -1,12 +1,14 @@
 package com.yeffcc.blog.strategy.context;
 
 import com.yeffcc.blog.strategy.UploadStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.yeffcc.blog.enums.UploadModeEnum.getStrategy;
@@ -26,8 +28,7 @@ public class UploadStrategyContext {
     @Value("${upload.mode}")
     private String uploadMode;
 
-    @Resource
-    private Map<String, UploadStrategy> uploadStrategyMap;
+    private Map<String, UploadStrategy> uploadStrategyMap = new HashMap<>();
 
     /**
      * 执行上传策略
