@@ -69,12 +69,12 @@ public class UserAuthController {
     /**
      * 用户注册
      *
-     * @param user 用户信息
+     * @param userVO 用户信息
      */
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
-    public Result<?> register(@Valid @RequestBody UserVO user) {
-        userAuthService.register(user);
+    public Result<?> register(@Valid @RequestBody UserVO userVO) {
+        userAuthService.register(userVO);
         return Result.ok();
     }
 

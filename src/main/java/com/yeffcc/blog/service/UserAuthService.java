@@ -20,9 +20,9 @@ public interface UserAuthService extends IService<UserAuth> {
     /**
      * 发送邮箱验证码
      *
-     * @param username 邮箱号
+     * @param emailName 邮箱号
      */
-    void sendCode(String username);
+    void sendCode(String emailName);
 
     /**
      * 获取用户区域分布
@@ -35,9 +35,16 @@ public interface UserAuthService extends IService<UserAuth> {
     /**
      * 用户注册
      *
-     * @param user 用户对象
+     * @param userVO 用户对象
      */
-    void register(UserVO user);
+    void register(UserVO userVO);
+
+    /**
+     * 用户登入
+     *
+     * @param userVO 用户对象
+     */
+    void login(UserVO userVO);
 
     /**
      * qq登录
@@ -58,9 +65,9 @@ public interface UserAuthService extends IService<UserAuth> {
     /**
      * 修改密码
      *
-     * @param user 用户对象
+     * @param userVO 用户对象
      */
-    void updatePassword(UserVO user);
+    void updatePassword(UserVO userVO);
 
     /**
      * 修改管理员密码
@@ -72,9 +79,9 @@ public interface UserAuthService extends IService<UserAuth> {
     /**
      * 查询后台用户列表
      *
-     * @param condition 条件
+     * @param conditionVO 条件
      * @return 用户列表
      */
-    PageResult<UserBackDTO> listUserBackDTO(ConditionVO condition);
+    PageResult<UserBackDTO> listUserBackDTO(ConditionVO conditionVO);
 
 }

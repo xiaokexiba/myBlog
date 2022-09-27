@@ -59,6 +59,7 @@ import static com.yeffcc.blog.util.CommonUtils.getRandomCode;
 @Slf4j
 @Service
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> implements UserAuthService {
+
     @Resource
     private RedisService redisService;
     @Resource
@@ -74,25 +75,36 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     @Resource
     private SocialLoginStrategyContext socialLoginStrategyContext;
 
+    /**
+     * 发送验证码
+     *
+     * @param emailName 邮箱号
+     */
     @Override
-    public void sendCode(String username) {
+    public void sendCode(String emailName) {
         // 校验账号是否合法
-        if (!checkEmail(username)) {
+        if (!checkEmail(emailName)) {
             throw new BusinessException("请输入正确邮箱");
         }
         // 生成六位随机验证码发送
         String code = getRandomCode();
         // 发送验证码
         EmailDTO emailDTO = EmailDTO.builder()
-                .email(username)
+                .email(emailName)
                 .subject("验证码")
                 .content("您的验证码为 " + code + " 有效期15分钟，请不要告诉他人哦！")
                 .build();
         rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "*", new Message(JSON.toJSONBytes(emailDTO), new MessageProperties()));
         // 将验证码存入redis，设置过期时间为15分钟
-        redisService.set(USER_CODE_KEY + username, code, CODE_EXPIRE_TIME);
+        redisService.set(USER_CODE_KEY + emailName, code, CODE_EXPIRE_TIME);
     }
 
+    /**
+     * 获取用户区域分布
+     *
+     * @param conditionVO 条件
+     * @return 用户区域分布
+     */
     @Override
     public List<UserAreaDTO> listUserAreas(ConditionVO conditionVO) {
         List<UserAreaDTO> userAreaDTOList = new ArrayList<>();
@@ -122,6 +134,11 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         return userAreaDTOList;
     }
 
+    /**
+     * 用户注册
+     *
+     * @param user 用户信息
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void register(UserVO user) {
@@ -138,7 +155,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         userInfoMapper.insert(userInfo);
         // 绑定用户角色
         UserRole userRole = UserRole.builder()
-                .userId(userInfo.getId().intValue())
+                .userId(userInfo.getId())
                 .roleId(USER.getRoleId())
                 .build();
         userRoleMapper.insert(userRole);
@@ -152,18 +169,43 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         userAuthMapper.insert(userAuth);
     }
 
+    /**
+     * 用户登入
+     *
+     * @param userVO 用户对象
+     */
     @Override
-    public void updatePassword(UserVO user) {
+    public void login(UserVO userVO) {
+        UserAuth userAuth = userAuthMapper.selectOne(new LambdaQueryWrapper<UserAuth>()
+                .eq(UserAuth::getUsername, userVO.getUsername())
+                .eq(UserAuth::getPassword, userVO.getPassword()));
+        if (userAuth == null) {
+            throw new BusinessException("用户名或者密码错误，请重新输入！");
+        }
+    }
+
+    /**
+     * 更改密码
+     *
+     * @param userVO 用户对象
+     */
+    @Override
+    public void updatePassword(UserVO userVO) {
         // 校验账号是否合法
-        if (!checkUser(user)) {
+        if (!checkUser(userVO)) {
             throw new BusinessException("邮箱尚未注册！");
         }
         // 根据用户名修改密码
         userAuthMapper.update(new UserAuth(), new LambdaUpdateWrapper<UserAuth>()
-                .set(UserAuth::getPassword, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
-                .eq(UserAuth::getUsername, user.getUsername()));
+                .set(UserAuth::getPassword, BCrypt.hashpw(userVO.getPassword(), BCrypt.gensalt()))
+                .eq(UserAuth::getUsername, userVO.getUsername()));
     }
 
+    /**
+     * 更改管理员密码
+     *
+     * @param passwordVO 密码对象
+     */
     @Override
     public void updateAdminPassword(PasswordVO passwordVO) {
         // 查询旧密码是否正确
@@ -181,24 +223,42 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         }
     }
 
+    /**
+     * 查询后台用户列表
+     *
+     * @param conditionVO 条件
+     * @return 用户列表
+     */
     @Override
-    public PageResult<UserBackDTO> listUserBackDTO(ConditionVO condition) {
+    public PageResult<UserBackDTO> listUserBackDTO(ConditionVO conditionVO) {
         // 获取后台用户数量
-        Integer count = userAuthMapper.countUser(condition);
+        Integer count = userAuthMapper.countUser(conditionVO);
         if (count == 0) {
             return new PageResult<>();
         }
         // 获取后台用户列表
-        List<UserBackDTO> userBackDTOList = userAuthMapper.listUsers(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
+        List<UserBackDTO> userBackDTOList = userAuthMapper.listUsers(PageUtils.getLimitCurrent(), PageUtils.getSize(), conditionVO);
         return new PageResult<>(userBackDTOList, count);
     }
 
+    /**
+     * QQ登入
+     *
+     * @param qqLoginVO qq登录信息
+     * @return 用户信息
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public UserInfoDTO qqLogin(QQLoginVO qqLoginVO) {
         return socialLoginStrategyContext.executeLoginStrategy(JSON.toJSONString(qqLoginVO), LoginTypeEnum.QQ);
     }
 
+    /**
+     * 微信登入
+     *
+     * @param weChatLoginVO 微信登录信息
+     * @return 用户信息
+     */
     @Transactional(rollbackFor = BusinessException.class)
     @Override
     public UserInfoDTO weChatLogin(WeChatLoginVO weChatLoginVO) {
